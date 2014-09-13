@@ -33,12 +33,6 @@ import java.net.URI;
 @Nonnull
 public class XomB implements XomBuilderFactory {
 
-    /**
-     * Rather than use null to represent unset URI values, use this special
-     * constant.
-     */
-    public static final URI NULL_URI = URI.create("");
-
     private final XomBuilderFactory xomBuilderFactory;
 
     /**

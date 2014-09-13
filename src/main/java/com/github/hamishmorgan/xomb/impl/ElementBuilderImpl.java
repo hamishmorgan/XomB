@@ -178,13 +178,13 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
     @Nonnull
     public ElementBuilder addAttribute(@Nonnull final String name,
                                        final String value) {
-        return addAttribute(name, XomB.NULL_URI, value, Attribute.Type.CDATA);
+        return addAttribute(name, Optional.<URI>absent(), value, Attribute.Type.CDATA);
     }
 
     @Override
     @Nonnull
     public ElementBuilder addAttribute(
-            @Nonnull final String name, @Nonnull final URI namespace,
+            @Nonnull final String name, @Nonnull final Optional<URI> namespace,
             final String value, final Attribute.Type type) {
         checkNotNull(name, "name");
         checkArgument(!name.isEmpty(), "argument name is empty");
@@ -192,7 +192,8 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
         checkNotNull(value, "name");
         checkNotNull(type, "type");
 
-        Nodes nodes = factory.makeAttribute(name, namespace.toString(),
+        Nodes nodes = factory.makeAttribute(name,
+                namespace.isPresent() ? namespace.get().toString() : "",
                 value, type);
         for (int i = 0; i < nodes.size(); i++) {
             add(nodes.get(i));
@@ -227,7 +228,7 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
 
         final String namespaceStr = namespace.isPresent()
                 ? namespace.get().toString()
-                : XomB.NULL_URI.toString();
+                : "";
 
         final Element element;
         if (isRootElement)

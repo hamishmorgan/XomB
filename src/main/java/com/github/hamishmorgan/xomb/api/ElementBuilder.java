@@ -20,6 +20,7 @@ package com.github.hamishmorgan.xomb.api;
  * #L%
  */
 
+import com.google.common.base.Optional;
 import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Node;
@@ -118,9 +119,8 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      * @return ElementBuilder instance of method chaining
      */
     @Nonnull
-    ElementBuilder addAttribute(
-            @Nonnull String name, @Nonnull URI namespace,
-            String value, Attribute.Type type);
+    ElementBuilder addAttribute(@Nonnull String name, @Nonnull Optional<URI> namespace,
+                                String value, Attribute.Type type);
 
     /**
      * @param node
