@@ -79,7 +79,7 @@ to produce
 
 ## Notes
 
-Instances of `com.github.hamishmorgan.xom.XomB` are thread-safe if and only if the supplied `nu.xom.NodeFactory` is 
+Instances of `com.github.hamishmorgan.xomb.XomB` are thread-safe if and only if the supplied `nu.xom.NodeFactory` is 
 also the thread safe. The default factory implementation *is* thread safe, so the supplying this object (either 
 explicitly or implicitly using the default constructor) results in the XomB instance being thread-safe.
 

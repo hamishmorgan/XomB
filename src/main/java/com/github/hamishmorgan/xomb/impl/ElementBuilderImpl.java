@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom.impl;
+package com.github.hamishmorgan.xomb.impl;
 
 /*
  * #%L
@@ -20,8 +20,8 @@ package com.github.hamishmorgan.xom.impl;
  * #L%
  */
 
-import com.github.hamishmorgan.xom.XomB;
-import com.github.hamishmorgan.xom.api.ElementBuilder;
+import com.github.hamishmorgan.xomb.XomB;
+import com.github.hamishmorgan.xomb.api.ElementBuilder;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import nu.xom.*;
@@ -60,13 +60,13 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
     private Optional<URI> namespace;
 
     /**
-     * Constructor should not be called directly. Instead use {@link com.github.hamishmorgan.xom.XomB }
-     * nodeFactory methods: {@link com.github.hamishmorgan.xom.XomB#createElement(String) }
-     * {@link com.github.hamishmorgan.xom.XomB#createElement(String)},
-     * {@link com.github.hamishmorgan.xom.XomB#createRoot(String) }, and
-     * {@link com.github.hamishmorgan.xom.XomB#root(String, java.net.URI) }.
+     * Constructor should not be called directly. Instead use {@link com.github.hamishmorgan.xomb.XomB }
+     * nodeFactory methods: {@link com.github.hamishmorgan.xomb.XomB#createElement(String) }
+     * {@link com.github.hamishmorgan.xomb.XomB#createElement(String)},
+     * {@link com.github.hamishmorgan.xomb.XomB#createRoot(String) }, and
+     * {@link com.github.hamishmorgan.xomb.XomB#root(String, java.net.URI) }.
      *
-     * @param nodeFactory use to instantiate xom nodes
+     * @param nodeFactory use to instantiate xomb nodes
      * @param name        the qualified element name
      * @param rootElement whether or not this element is expected to be a
      *                    createRoot element.

@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom;
+package com.github.hamishmorgan.xomb;
 
 /*
  * #%L
@@ -20,7 +20,7 @@ package com.github.hamishmorgan.xom;
  * #L%
  */
 
-import com.github.hamishmorgan.xom.api.ElementBuilder;
+import com.github.hamishmorgan.xomb.api.ElementBuilder;
 import nu.xom.Document;
 import nu.xom.NodeFactory;
 import org.junit.Test;

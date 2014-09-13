@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom;
+package com.github.hamishmorgan.xomb;
 
 /*
  * #%L
@@ -20,11 +20,11 @@ package com.github.hamishmorgan.xom;
  * #L%
  */
 
-import com.github.hamishmorgan.xom.api.DocTypeBuilder;
-import com.github.hamishmorgan.xom.api.DocumentBuilder;
-import com.github.hamishmorgan.xom.api.ElementBuilder;
-import com.github.hamishmorgan.xom.api.XomBuilderFactory;
-import com.github.hamishmorgan.xom.impl.XomBuilderFactoryImpl;
+import com.github.hamishmorgan.xomb.api.DocTypeBuilder;
+import com.github.hamishmorgan.xomb.api.DocumentBuilder;
+import com.github.hamishmorgan.xomb.api.ElementBuilder;
+import com.github.hamishmorgan.xomb.api.XomBuilderFactory;
+import com.github.hamishmorgan.xomb.impl.XomBuilderFactoryImpl;
 import nu.xom.NodeFactory;
 
 import javax.annotation.Nonnull;
@@ -42,7 +42,7 @@ public class XomB implements XomBuilderFactory {
     private final XomBuilderFactory xomBuilderFactory;
 
     /**
-     * Construct a new com.github.hamishmorgan.xom.XomB instance that will use the given NodeFactory
+     * Construct a new com.github.hamishmorgan.xomb.XomB instance that will use the given NodeFactory
      * instance to create all XOM nodes.
      * <p/>
      *
@@ -54,7 +54,7 @@ public class XomB implements XomBuilderFactory {
     }
 
     /**
-     * Construct a new com.github.hamishmorgan.xom.XomB instance that will use the default NodeFactory.
+     * Construct a new com.github.hamishmorgan.xomb.XomB instance that will use the default NodeFactory.
      */
     public XomB() {
         this(new NodeFactory());

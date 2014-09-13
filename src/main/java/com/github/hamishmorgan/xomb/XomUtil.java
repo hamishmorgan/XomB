@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom;
+package com.github.hamishmorgan.xomb;
 
 /*
  * #%L

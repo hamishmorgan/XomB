@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom.impl;
+package com.github.hamishmorgan.xomb.api;
 
 /*
  * #%L
@@ -21,27 +21,22 @@ package com.github.hamishmorgan.xom.impl;
  */
 
 import nu.xom.NodeFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+public interface XomBuilderFactory {
 
-@Nonnull
-class AbstractXomBuilder {
+    NodeFactory getNodeFactory();
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractXomBuilder.class);
+    @Nonnull
+    DocumentBuilder createDocument();
 
-    protected final NodeFactory factory;
+    @Nonnull
+    DocTypeBuilder createDocType(@Nonnull String rootElementName);
 
-    AbstractXomBuilder(final NodeFactory nodeFactory) {
-        this.factory = checkNotNull(nodeFactory, "nodeFactory");
-    }
+    @Nonnull
+    ElementBuilder createRoot(@Nonnull String name);
 
-    public NodeFactory getFactory() {
-        return factory;
-    }
-
-
+    @Nonnull
+    ElementBuilder createElement(@Nonnull String name);
 }

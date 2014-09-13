@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom.impl;
+package com.github.hamishmorgan.xomb.impl;
 
 /*
  * #%L
@@ -20,7 +20,7 @@ package com.github.hamishmorgan.xom.impl;
  * #L%
  */
 
-import com.github.hamishmorgan.xom.api.DocTypeBuilder;
+import com.github.hamishmorgan.xomb.api.DocTypeBuilder;
 import com.google.common.base.Optional;
 import nu.xom.DocType;
 import nu.xom.NodeFactory;

@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom.impl;
+package com.github.hamishmorgan.xomb.impl;
 
 /*
  * #%L
@@ -20,7 +20,7 @@ package com.github.hamishmorgan.xom.impl;
  * #L%
  */
 
-import com.github.hamishmorgan.xom.api.ParentNodeBuilder;
+import com.github.hamishmorgan.xomb.api.ParentNodeBuilder;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import nu.xom.*;

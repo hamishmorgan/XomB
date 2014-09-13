@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom.api;
+package com.github.hamishmorgan.xomb.api;
 
 /*
  * #%L
@@ -20,33 +20,29 @@ package com.github.hamishmorgan.xom.api;
  * #L%
  */
 
-import nu.xom.DocType;
-import nu.xom.Document;
-import nu.xom.Element;
+import nu.xom.Nodes;
 
 import javax.annotation.Nonnull;
 import java.net.URI;
 
-public interface DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder> {
+public interface DocTypeBuilder extends NodeBuilder<Nodes, DocTypeBuilder> {
 
     @Nonnull
-    DocumentBuilder withDocType(@Nonnull String rootElementName,
-                                @Nonnull String publicID,
-                                URI systemID);
+    DocTypeBuilder withSystemID(URI systemID);
 
     @Nonnull
-    DocumentBuilder withDocType(@Nonnull String rootElementName);
+    DocTypeBuilder clearSystemID();
 
     @Nonnull
-    DocumentBuilder withDocType(@Nonnull DocType docType);
+    DocTypeBuilder withPublicID(@Nonnull String publicID);
 
     @Nonnull
-    DocumentBuilder withDocType(@Nonnull DocTypeBuilder docTypeBuilder);
+    DocTypeBuilder clearPublicID();
 
     @Nonnull
-    DocumentBuilder withRoot(@Nonnull ElementBuilder rootElement);
+    DocTypeBuilder withInternalDTDSubset(@Nonnull String internalDTDSubset);
 
     @Nonnull
-    DocumentBuilder withRoot(@Nonnull Element rootElement);
+    DocTypeBuilder clearInternalDTDSubset();
 
 }
