@@ -37,6 +37,7 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      *
      * @return
      */
+    @Nonnull
     String getLocalName();
 
     /**
@@ -54,7 +55,7 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      * @throws NullPointerException if namespace is null
      */
     @Nonnull
-    ElementBuilder withNamespace(URI namespace);
+    ElementBuilder withNamespace(@Nonnull URI namespace);
 
     /**
      * @return ElementBuilder instance of method chaining
@@ -69,7 +70,7 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      * @throws IllegalArgumentException if prefix is empty
      */
     @Nonnull
-    ElementBuilder withPrefix(@Nonnull String prefix);
+    ElementBuilder withPrefix(String prefix);
 
     @Nonnull
     ElementBuilder clearPrefix();
@@ -79,7 +80,7 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      * @return ElementBuilder instance of method chaining
      */
     @Nonnull
-    ElementBuilder add(String data);
+    ElementBuilder add(@Nonnull String data);
 
     /**
      * @param elBuilder
@@ -108,8 +109,7 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      * @return ElementBuilder instance of method chaining
      */
     @Nonnull
-    ElementBuilder addAttribute(@Nonnull String name,
-                                String value);
+    ElementBuilder addAttribute(@Nonnull String name, @Nonnull String value);
 
     /**
      * @param name
@@ -119,8 +119,7 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      * @return ElementBuilder instance of method chaining
      */
     @Nonnull
-    ElementBuilder addAttribute(@Nonnull String name, @Nonnull Optional<URI> namespace,
-                                String value, Attribute.Type type);
+    ElementBuilder addAttribute(@Nonnull String name, @Nonnull Optional<URI> namespace, @Nonnull String value, @Nonnull Attribute.Type type);
 
     /**
      * @param node
@@ -130,5 +129,5 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      *                                  Document, or node already has a parent.
      */
     @Nonnull
-    ElementBuilder add(Node node);
+    ElementBuilder add(@Nonnull Node node);
 }

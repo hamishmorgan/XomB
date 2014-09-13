@@ -33,6 +33,7 @@ import java.net.URI;
 @Nonnull
 public class XomB implements XomBuilderFactory {
 
+    @Nonnull
     private final XomBuilderFactory xomBuilderFactory;
 
     /**

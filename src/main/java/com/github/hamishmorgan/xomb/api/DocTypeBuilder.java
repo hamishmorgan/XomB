@@ -28,7 +28,7 @@ import java.net.URI;
 public interface DocTypeBuilder extends NodeBuilder<Nodes, DocTypeBuilder> {
 
     @Nonnull
-    DocTypeBuilder withSystemID(URI systemID);
+    DocTypeBuilder withSystemID(@Nonnull URI systemID);
 
     @Nonnull
     DocTypeBuilder clearSystemID();

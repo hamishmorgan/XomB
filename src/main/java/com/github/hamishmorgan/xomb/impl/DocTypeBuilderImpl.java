@@ -38,13 +38,16 @@ class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
     @Nonnull
     private final String rootElementName;
 
+    @Nonnull
     private Optional<String> publicID;
 
+    @Nonnull
     private Optional<URI> systemID;
 
+    @Nonnull
     private Optional<String> internalDTDSubset;
 
-    DocTypeBuilderImpl(NodeFactory factory, @Nonnull final String rootElementName) {
+    DocTypeBuilderImpl(@Nonnull NodeFactory factory, @Nonnull final String rootElementName) {
         super(factory);
         checkArgument(!rootElementName.isEmpty(),
                 "argument rootElementName is empty");
@@ -56,7 +59,7 @@ class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
 
     @Override
     @Nonnull
-    public DocTypeBuilder withSystemID(final URI systemID) {
+    public DocTypeBuilder withSystemID(@Nonnull final URI systemID) {
         this.systemID = Optional.of(systemID);
         return this;
     }
@@ -86,8 +89,7 @@ class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
 
     @Override
     @Nonnull
-    public DocTypeBuilder withInternalDTDSubset(
-            @Nonnull final String internalDTDSubset) {
+    public DocTypeBuilder withInternalDTDSubset(@Nonnull final String internalDTDSubset) {
         checkArgument(!internalDTDSubset.isEmpty(),
                 "argument internalDTDSubset is empty");
         this.internalDTDSubset = Optional.of(internalDTDSubset);
@@ -101,6 +103,7 @@ class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
         return this;
     }
 
+    @Nonnull
     public Nodes build() {
         final Nodes doctypeNodes = factory.makeDocType(
                 rootElementName,

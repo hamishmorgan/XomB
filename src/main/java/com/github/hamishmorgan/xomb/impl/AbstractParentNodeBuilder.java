@@ -48,6 +48,7 @@ abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
     /**
      * Build an immutable list of childrenOf.
      */
+    @Nonnull
     private final ImmutableList.Builder<Node> children;
     /**
      * Defines a names-space from which all URIs inside are considered to be
@@ -60,12 +61,13 @@ abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
      *      &lt;a xml:base="http://example.org/test" href="#foo"/&gt;
      * </pre>
      */
+    @Nonnull
     private Optional<URI> baseURI;
 
     /**
      * Constructor
      */
-    AbstractParentNodeBuilder(NodeFactory nodeFactory) {
+    AbstractParentNodeBuilder(@Nonnull NodeFactory nodeFactory) {
         super(nodeFactory);
         baseURI = Optional.absent();
         children = ImmutableList.builder();
@@ -74,7 +76,7 @@ abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
     @Override
     @Nonnull
     @SuppressWarnings("unchecked")
-    public B withBaseURI(final URI baseURI) {
+    public B withBaseURI(@Nonnull final URI baseURI) {
         this.baseURI = Optional.of(baseURI);
         return (B) this;
     }
@@ -89,7 +91,7 @@ abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
 
     @Override
     @Nonnull
-    public B addPI(@Nonnull final String target, final String data) {
+    public B addPI(@Nonnull final String target, @Nonnull final String data) {
         checkArgument(!target.isEmpty(), "argument target is empty");
         return _addChildren(factory.makeProcessingInstruction(
                 checkNotNull(target, "target"),
@@ -104,7 +106,7 @@ abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
 
     @Override
     @Nonnull
-    public B addComment(final String data) {
+    public B addComment(@Nonnull final String data) {
         return _addChildren(factory.makeComment(checkNotNull(data, "data")));
     }
 
@@ -117,7 +119,8 @@ abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
     /**
      * @return
      */
-    protected Optional<URI> _getBaseURI() {
+    @Nonnull
+    Optional<URI> _getBaseURI() {
         return baseURI;
     }
 
@@ -130,7 +133,7 @@ abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    protected B _addChildren(@Nonnull final Nodes nodes) {
+    B _addChildren(@Nonnull final Nodes nodes) {
         for (int i = 0; i < nodes.size(); i++)
             _addChild(nodes.get(i));
         return (B) this;
@@ -144,13 +147,13 @@ abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    protected B _addChild(@Nonnull final Node node) {
+    B _addChild(@Nonnull final Node node) {
         checkArgument(node.getParent() == null, "node argument already has a parent");
         children.add(node);
         return (B) this;
     }
 
-    protected List<Node> _getChildren() {
+    List<Node> _getChildren() {
         return children.build();
     }
 }

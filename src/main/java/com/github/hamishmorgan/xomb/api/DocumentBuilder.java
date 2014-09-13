@@ -29,24 +29,16 @@ import java.net.URI;
 
 public interface DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder> {
 
-    @Nonnull
-    DocumentBuilder withDocType(@Nonnull String rootElementName,
-                                @Nonnull String publicID,
-                                URI systemID);
+    @Nonnull DocumentBuilder withDocType(@Nonnull String rootElementName, @Nonnull String publicID, @Nonnull URI systemID);
 
-    @Nonnull
-    DocumentBuilder withDocType(@Nonnull String rootElementName);
+    @Nonnull DocumentBuilder withDocType(@Nonnull String rootElementName);
 
-    @Nonnull
-    DocumentBuilder withDocType(@Nonnull DocType docType);
+    @Nonnull DocumentBuilder withDocType(@Nonnull DocType docType);
 
-    @Nonnull
-    DocumentBuilder withDocType(@Nonnull DocTypeBuilder docTypeBuilder);
+    @Nonnull DocumentBuilder withDocType(@Nonnull DocTypeBuilder docTypeBuilder);
 
-    @Nonnull
-    DocumentBuilder withRoot(@Nonnull ElementBuilder rootElement);
+    @Nonnull DocumentBuilder withRoot(@Nonnull ElementBuilder rootElement);
 
-    @Nonnull
-    DocumentBuilder withRoot(@Nonnull Element rootElement);
+    @Nonnull DocumentBuilder withRoot(@Nonnull Element rootElement);
 
 }

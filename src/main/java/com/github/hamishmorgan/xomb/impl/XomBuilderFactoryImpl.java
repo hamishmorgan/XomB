@@ -33,12 +33,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Nonnull
 public class XomBuilderFactoryImpl implements XomBuilderFactory {
 
-    protected final NodeFactory nodeFactory;
+    @Nonnull
+    private final NodeFactory nodeFactory;
 
-    public XomBuilderFactoryImpl(final NodeFactory nodeFactory) {
+    public XomBuilderFactoryImpl(@Nonnull final NodeFactory nodeFactory) {
         this.nodeFactory = checkNotNull(nodeFactory, "nodeFactory");
     }
 
+    @Nonnull
     @Override
     public NodeFactory getNodeFactory() {
         return nodeFactory;

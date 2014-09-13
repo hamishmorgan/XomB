@@ -42,11 +42,11 @@ public class XomUtil {
         return toString(new XomB().createDocument().withRoot(element).build(), charset);
     }
 
-    public static String toString(Document document) {
+    public static String toString(@Nonnull Document document) {
         return toString(document, Charset.defaultCharset());
     }
 
-    public static String toString(Document document, @Nonnull Charset charset) {
+    public static String toString(@Nonnull Document document, @Nonnull Charset charset) {
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             writeDocument(document, out, charset);
@@ -57,7 +57,7 @@ public class XomUtil {
     }
 
     public static void writeDocument(
-            Document document, OutputStream outputStream, @Nonnull Charset encoding)
+            @Nonnull Document document, @Nonnull OutputStream outputStream, @Nonnull Charset encoding)
             throws IOException {
 
         Preconditions.checkNotNull(document, "xmlDoc");

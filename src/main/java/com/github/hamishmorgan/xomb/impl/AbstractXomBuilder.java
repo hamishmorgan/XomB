@@ -31,17 +31,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Nonnull
 class AbstractXomBuilder {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractXomBuilder.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(AbstractXomBuilder.class);
 
-    protected final NodeFactory factory;
+    @Nonnull
+    final NodeFactory factory;
 
-    AbstractXomBuilder(final NodeFactory nodeFactory) {
+    AbstractXomBuilder(@Nonnull final NodeFactory nodeFactory) {
         this.factory = checkNotNull(nodeFactory, "nodeFactory");
     }
-
-    public NodeFactory getFactory() {
-        return factory;
-    }
-
 
 }

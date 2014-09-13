@@ -20,7 +20,6 @@ package com.github.hamishmorgan.xomb.impl;
  * #L%
  */
 
-import com.github.hamishmorgan.xomb.XomB;
 import com.github.hamishmorgan.xomb.api.ElementBuilder;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -45,18 +44,22 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
     /**
      * Construct a list of the attributes of this element.
      */
+    @Nonnull
     private final ImmutableList.Builder<Attribute> attributes;
     /**
      * The elements unqualified name.
      */
-    private String localName;
+    @Nonnull
+    private Optional<String> localName;
     /**
      * The namespace prefix for the given name.
      */
+    @Nonnull
     private Optional<String> prefix = Optional.absent();
     /**
      * The elements name-space.
      */
+    @Nonnull
     private Optional<URI> namespace;
 
     /**
@@ -73,7 +76,7 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
      * @throws NullPointerException     if name is null
      * @throws IllegalArgumentException if name is empty
      */
-    ElementBuilderImpl(NodeFactory nodeFactory, @Nonnull final String name, final boolean rootElement) {
+    ElementBuilderImpl(@Nonnull NodeFactory nodeFactory, @Nonnull final String name, final boolean rootElement) {
         super(nodeFactory);
         checkNotNull(name, "name");
         checkArgument(!name.isEmpty(), "argument name is empty");
@@ -89,16 +92,19 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
         this.isRootElement = rootElement;
         this.attributes = ImmutableList.builder();
         this.namespace = Optional.absent();
+        this.localName = Optional.absent();
     }
 
     @Override
-    public String getLocalName() {
-        return localName;
+    public
+    @Nonnull
+    String getLocalName() {
+        return localName.get();
     }
 
     @Override
     @Nonnull
-    public ElementBuilder withNamespace(final URI namespace) {
+    public ElementBuilder withNamespace(@Nonnull final URI namespace) {
         this.namespace = Optional.of(namespace);
         return this;
     }
@@ -131,13 +137,13 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
     public final ElementBuilder withLocalName(@Nonnull String localName) {
         checkArgument(!localName.isEmpty(), "argument localName is empty");
 
-        this.localName = localName;
+        this.localName = Optional.of(localName);
         return this;
     }
 
     @Override
     @Nonnull
-    public ElementBuilder add(final String data) {
+    public ElementBuilder add(@Nonnull final String data) {
         checkNotNull(data, "data");
 //	    checkArgument(!data.isEmpty(), "argument data is empty");
 
@@ -177,7 +183,7 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
     @Override
     @Nonnull
     public ElementBuilder addAttribute(@Nonnull final String name,
-                                       final String value) {
+                                       @Nonnull final String value) {
         return addAttribute(name, Optional.<URI>absent(), value, Attribute.Type.CDATA);
     }
 
@@ -185,7 +191,7 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
     @Nonnull
     public ElementBuilder addAttribute(
             @Nonnull final String name, @Nonnull final Optional<URI> namespace,
-            final String value, final Attribute.Type type) {
+            @Nonnull final String value, @Nonnull final Attribute.Type type) {
         checkNotNull(name, "name");
         checkArgument(!name.isEmpty(), "argument name is empty");
         checkNotNull(namespace, "namespaceURI");
@@ -203,7 +209,7 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
 
     @Override
     @Nonnull
-    public ElementBuilder add(final Node node) {
+    public ElementBuilder add(@Nonnull final Node node) {
         checkNotNull(node, "node");
         if (node instanceof Namespace || node instanceof DocType
                 || node instanceof Document) {
@@ -220,11 +226,13 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
     }
 
     @Override
-    public Nodes build() {
+    public
+    @Nonnull
+    Nodes build() {
 
         final String qualifiedName = prefix.isPresent()
-                ? prefix.get() + ":" + localName
-                : localName;
+                ? prefix.get() + ":" + localName.get()
+                : localName.get();
 
         final String namespaceStr = namespace.isPresent()
                 ? namespace.get().toString()

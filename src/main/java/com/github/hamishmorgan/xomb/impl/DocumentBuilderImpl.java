@@ -50,7 +50,7 @@ class DocumentBuilderImpl
      * Constructor should not be called directly. Instead use {@link com.github.hamishmorgan.xomb.XomB#createDocument()}
      * nodeFactory method.
      */
-    DocumentBuilderImpl(NodeFactory nodeFactory) {
+    DocumentBuilderImpl(@Nonnull NodeFactory nodeFactory) {
         super(nodeFactory);
         docTypeSet = false;
         rootElementSet = false;
@@ -60,7 +60,7 @@ class DocumentBuilderImpl
     @Nonnull
     public DocumentBuilder withDocType(@Nonnull final String rootElementName,
                                        @Nonnull final String publicID,
-                                       final URI systemID) {
+                                       @Nonnull final URI systemID) {
         return withDocType(new DocTypeBuilderImpl(factory, rootElementName)
                 .withPublicID(publicID)
                 .withSystemID(systemID));
@@ -125,6 +125,7 @@ class DocumentBuilderImpl
     }
 
     @Override
+    @Nonnull
     public Document build() {
         final Document document = factory.startMakingDocument();
 

@@ -34,7 +34,7 @@ public interface ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>> extends
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    B withBaseURI(URI baseURI);
+    B withBaseURI(@Nonnull URI baseURI);
 
     @Nonnull
     @SuppressWarnings("unchecked")
@@ -47,7 +47,7 @@ public interface ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>> extends
      * @throws NullPointerException if target or data is null
      */
     @Nonnull
-    B addPI(@Nonnull String target, String data);
+    B addPI(@Nonnull String target, @Nonnull String data);
 
     /**
      * @param pi
@@ -67,7 +67,7 @@ public interface ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>> extends
      *                                              unsupported characters.
      */
     @Nonnull
-    B addComment(String data);
+    B addComment(@Nonnull String data);
 
     /**
      * @param comment
