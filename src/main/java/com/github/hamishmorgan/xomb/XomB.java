@@ -23,7 +23,7 @@ package com.github.hamishmorgan.xomb;
 import com.github.hamishmorgan.xomb.api.DocTypeBuilder;
 import com.github.hamishmorgan.xomb.api.DocumentBuilder;
 import com.github.hamishmorgan.xomb.api.ElementBuilder;
-import com.github.hamishmorgan.xomb.api.XomBuilderFactory;
+import com.github.hamishmorgan.xomb.spi.XomBuilderFactory;
 import com.github.hamishmorgan.xomb.impl.XomBuilderFactoryImpl;
 import nu.xom.NodeFactory;
 

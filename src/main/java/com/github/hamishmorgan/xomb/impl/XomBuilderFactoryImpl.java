@@ -23,7 +23,7 @@ package com.github.hamishmorgan.xomb.impl;
 import com.github.hamishmorgan.xomb.api.DocTypeBuilder;
 import com.github.hamishmorgan.xomb.api.DocumentBuilder;
 import com.github.hamishmorgan.xomb.api.ElementBuilder;
-import com.github.hamishmorgan.xomb.api.XomBuilderFactory;
+import com.github.hamishmorgan.xomb.spi.XomBuilderFactory;
 import nu.xom.NodeFactory;
 
 import javax.annotation.Nonnull;

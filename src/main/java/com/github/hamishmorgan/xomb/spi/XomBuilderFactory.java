@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xomb.api;
+package com.github.hamishmorgan.xomb.spi;
 
 /*
  * #%L
@@ -20,6 +20,9 @@ package com.github.hamishmorgan.xomb.api;
  * #L%
  */
 
+import com.github.hamishmorgan.xomb.api.DocTypeBuilder;
+import com.github.hamishmorgan.xomb.api.DocumentBuilder;
+import com.github.hamishmorgan.xomb.api.ElementBuilder;
 import nu.xom.NodeFactory;
 
 import javax.annotation.Nonnull;
