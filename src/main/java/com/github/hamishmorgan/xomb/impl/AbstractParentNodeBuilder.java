@@ -23,7 +23,11 @@ package com.github.hamishmorgan.xomb.impl;
 import com.github.hamishmorgan.xomb.api.ParentNodeBuilder;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import nu.xom.*;
+import nu.xom.Comment;
+import nu.xom.Node;
+import nu.xom.NodeFactory;
+import nu.xom.Nodes;
+import nu.xom.ProcessingInstruction;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;

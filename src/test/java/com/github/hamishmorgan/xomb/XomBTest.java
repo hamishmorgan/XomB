@@ -64,8 +64,8 @@ public class XomBTest {
 
     @Test
     public void testRepeatedBuild() {
-	
-	XomB x = new XomB();
+
+        XomB x = new XomB();
         ElementBuilder p = x.createElement("p");
 
         Document doc = x.createDocument()
@@ -80,8 +80,8 @@ public class XomBTest {
 
         System.out.println(XomUtil.toString(doc, Charset.forName("ASCII")));
     }
-   
-    
+
+
     @Test
     public void testNamespaces() {
 
@@ -137,7 +137,7 @@ public class XomBTest {
 //        
 
     }
-    
+
 //     @Test
 //    public void testCommentEscaping() {
 //

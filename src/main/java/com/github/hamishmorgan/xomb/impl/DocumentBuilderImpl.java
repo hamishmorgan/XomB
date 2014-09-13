@@ -23,7 +23,14 @@ package com.github.hamishmorgan.xomb.impl;
 import com.github.hamishmorgan.xomb.api.DocTypeBuilder;
 import com.github.hamishmorgan.xomb.api.DocumentBuilder;
 import com.github.hamishmorgan.xomb.api.ElementBuilder;
-import nu.xom.*;
+import nu.xom.Comment;
+import nu.xom.DocType;
+import nu.xom.Document;
+import nu.xom.Element;
+import nu.xom.Node;
+import nu.xom.NodeFactory;
+import nu.xom.Nodes;
+import nu.xom.ProcessingInstruction;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;

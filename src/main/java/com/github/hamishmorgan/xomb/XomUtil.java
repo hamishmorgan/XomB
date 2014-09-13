@@ -21,7 +21,18 @@ package com.github.hamishmorgan.xomb;
  */
 
 import com.google.common.base.Preconditions;
-import nu.xom.*;
+import nu.xom.Attribute;
+import nu.xom.Comment;
+import nu.xom.DocType;
+import nu.xom.Document;
+import nu.xom.Element;
+import nu.xom.Namespace;
+import nu.xom.Node;
+import nu.xom.Nodes;
+import nu.xom.ParentNode;
+import nu.xom.ProcessingInstruction;
+import nu.xom.Serializer;
+import nu.xom.Text;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
@@ -197,12 +208,12 @@ public class XomUtil {
     }
 
     public static void getPrintableText(@Nonnull Node node, @Nonnull StringBuilder builder) {
-        if (node.getClass().equals(Text.class)) {
-            builder.append(((Text) node).getValue());
-        } else if (node.getClass().equals(Element.class)) {
+        if (node instanceof Text) {
+            builder.append(node.getValue());
+        } else if (node instanceof Element) {
             for (int i = 0; i < node.getChildCount(); i++)
                 getPrintableText(node.getChild(i), builder);
-        } else if (node.getClass().equals(Document.class)) {
+        } else if (node instanceof Document) {
             getPrintableText(((Document) node).getRootElement(), builder);
         } else {
             assert node.getClass().equals(Attribute.class)
