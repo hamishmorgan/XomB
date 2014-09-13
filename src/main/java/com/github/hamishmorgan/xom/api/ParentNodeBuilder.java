@@ -34,7 +34,7 @@ public interface ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>> extends
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    B setBaseURI(URI baseURI);
+    B withBaseURI(URI baseURI);
 
     @Nonnull
     @SuppressWarnings("unchecked")

@@ -63,12 +63,12 @@ public class XomB implements XomBuilderFactory {
 
     @Nonnull
     public ElementBuilder root(@Nonnull final String name, final URI namespace) {
-        return root(name).setNamespace(namespace);
+        return createRoot(name).withNamespace(namespace);
     }
 
     @Nonnull
     public ElementBuilder buildElement(@Nonnull final String name, final URI namespace) {
-        return element(name).setNamespace(namespace);
+        return createElement(name).withNamespace(namespace);
     }
 
     @Override
@@ -78,25 +78,25 @@ public class XomB implements XomBuilderFactory {
 
     @Override
     @Nonnull
-    public DocumentBuilder document() {
-        return xomBuilderFactory.document();
+    public DocumentBuilder createDocument() {
+        return xomBuilderFactory.createDocument();
     }
 
     @Override
     @Nonnull
-    public DocTypeBuilder doctype(@Nonnull String rootElementName) {
-        return xomBuilderFactory.doctype(rootElementName);
+    public DocTypeBuilder createDocType(@Nonnull String rootElementName) {
+        return xomBuilderFactory.createDocType(rootElementName);
     }
 
     @Override
     @Nonnull
-    public ElementBuilder root(@Nonnull String name) {
-        return xomBuilderFactory.root(name);
+    public ElementBuilder createRoot(@Nonnull String name) {
+        return xomBuilderFactory.createRoot(name);
     }
 
     @Override
     @Nonnull
-    public ElementBuilder element(@Nonnull String name) {
-        return xomBuilderFactory.element(name);
+    public ElementBuilder createElement(@Nonnull String name) {
+        return xomBuilderFactory.createElement(name);
     }
 }

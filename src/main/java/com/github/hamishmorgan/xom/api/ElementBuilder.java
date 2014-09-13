@@ -45,7 +45,7 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      * @throws IllegalArgumentException if localName is empty
      */
     @Nonnull
-    ElementBuilder setLocalName(@Nonnull String localName);
+    ElementBuilder withLocalName(@Nonnull String localName);
 
     /**
      * @param namespace
@@ -53,7 +53,7 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      * @throws NullPointerException if namespace is null
      */
     @Nonnull
-    ElementBuilder setNamespace(URI namespace);
+    ElementBuilder withNamespace(URI namespace);
 
     /**
      * @return ElementBuilder instance of method chaining
@@ -68,7 +68,7 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      * @throws IllegalArgumentException if prefix is empty
      */
     @Nonnull
-    ElementBuilder setPrefix(@Nonnull String prefix);
+    ElementBuilder withPrefix(@Nonnull String prefix);
 
     @Nonnull
     ElementBuilder clearPrefix();

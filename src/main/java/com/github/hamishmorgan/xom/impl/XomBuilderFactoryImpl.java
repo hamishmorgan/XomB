@@ -46,25 +46,25 @@ public class XomBuilderFactoryImpl implements XomBuilderFactory {
 
     @Override
     @Nonnull
-    public DocumentBuilder document() {
+    public DocumentBuilder createDocument() {
         return new DocumentBuilderImpl(nodeFactory);
     }
 
     @Override
     @Nonnull
-    public DocTypeBuilder doctype(@Nonnull final String rootElementName) {
+    public DocTypeBuilder createDocType(@Nonnull final String rootElementName) {
         return new DocTypeBuilderImpl(nodeFactory, rootElementName);
     }
 
     @Override
     @Nonnull
-    public ElementBuilder root(@Nonnull final String name) {
+    public ElementBuilder createRoot(@Nonnull final String name) {
         return new ElementBuilderImpl(nodeFactory, name, true);
     }
 
     @Override
     @Nonnull
-    public ElementBuilder element(@Nonnull final String name) {
+    public ElementBuilder createElement(@Nonnull final String name) {
         return new ElementBuilderImpl(nodeFactory, name, false);
     }
 

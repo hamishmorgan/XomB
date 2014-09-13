@@ -74,7 +74,7 @@ abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
     @Override
     @Nonnull
     @SuppressWarnings("unchecked")
-    public B setBaseURI(final URI baseURI) {
+    public B withBaseURI(final URI baseURI) {
         this.baseURI = Optional.of(baseURI);
         return (B) this;
     }

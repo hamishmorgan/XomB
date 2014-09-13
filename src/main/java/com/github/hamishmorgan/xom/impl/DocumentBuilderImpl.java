@@ -47,7 +47,7 @@ class DocumentBuilderImpl
     private boolean rootElementSet;
 
     /**
-     * Constructor should not be called directly. Instead use {@link com.github.hamishmorgan.xom.XomB#document()}
+     * Constructor should not be called directly. Instead use {@link com.github.hamishmorgan.xom.XomB#createDocument()}
      * nodeFactory method.
      */
     DocumentBuilderImpl(NodeFactory nodeFactory) {
@@ -58,23 +58,23 @@ class DocumentBuilderImpl
 
     @Override
     @Nonnull
-    public DocumentBuilder setDocType(@Nonnull final String rootElementName,
-                                      @Nonnull final String publicID,
-                                      final URI systemID) {
-        return setDocType(new DocTypeBuilderImpl(factory, rootElementName)
-                .setPublicID(publicID)
-                .setSystemID(systemID));
+    public DocumentBuilder withDocType(@Nonnull final String rootElementName,
+                                       @Nonnull final String publicID,
+                                       final URI systemID) {
+        return withDocType(new DocTypeBuilderImpl(factory, rootElementName)
+                .withPublicID(publicID)
+                .withSystemID(systemID));
     }
 
     @Override
     @Nonnull
-    public DocumentBuilder setDocType(@Nonnull String rootElementName) {
-        return setDocType(new DocTypeBuilderImpl(factory, rootElementName));
+    public DocumentBuilder withDocType(@Nonnull String rootElementName) {
+        return withDocType(new DocTypeBuilderImpl(factory, rootElementName));
     }
 
     @Override
     @Nonnull
-    public DocumentBuilder setDocType(@Nonnull DocType docType) {
+    public DocumentBuilder withDocType(@Nonnull DocType docType) {
         checkState(!docTypeSet, "DocType has already been set.");
         docTypeSet = true;
         return _addChild(docType);
@@ -82,7 +82,7 @@ class DocumentBuilderImpl
 
     @Override
     @Nonnull
-    public DocumentBuilder setDocType(@Nonnull DocTypeBuilder docTypeBuilder) {
+    public DocumentBuilder withDocType(@Nonnull DocTypeBuilder docTypeBuilder) {
         checkState(!docTypeSet, "DocType has already been set.");
         docTypeSet = true;
         return _addChildren(docTypeBuilder.build());
@@ -90,15 +90,15 @@ class DocumentBuilderImpl
 
     @Override
     @Nonnull
-    public DocumentBuilderImpl setRoot(@Nonnull ElementBuilder rootElement) {
+    public DocumentBuilderImpl withRoot(@Nonnull ElementBuilder rootElement) {
         checkNotNull(rootElement, "rootElement");
 
-        //   Can contain any number of PIs and comments, but exactly 1 root node
+        //   Can contain any number of PIs and comments, but exactly 1 createRoot node
         final Nodes nodes = rootElement.build();
         for (int i = 0; i < nodes.size(); i++) {
             final Node node = nodes.get(i);
             if (node instanceof Element) {
-                setRoot((Element) node);
+                withRoot((Element) node);
             } else if (node instanceof ProcessingInstruction
                     || node instanceof Comment) {
                 _addChild(node);
@@ -115,7 +115,7 @@ class DocumentBuilderImpl
 
     @Override
     @Nonnull
-    public DocumentBuilder setRoot(@Nonnull Element rootElement) {
+    public DocumentBuilder withRoot(@Nonnull Element rootElement) {
         checkNotNull(rootElement, "rootElement");
         checkState(!rootElementSet, "Root element has already been set.");
 
@@ -136,7 +136,7 @@ class DocumentBuilderImpl
          * Rather than just appending all the child elements, we need to
          * explicitly call the setRootElement method on the document exactly
          * once. Any nodes before or after must be inserted before and after
-         * the root element.
+         * the root createElement.
          */
 
         final List<Node> children = _getChildren();

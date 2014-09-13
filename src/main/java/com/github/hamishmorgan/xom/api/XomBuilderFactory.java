@@ -29,14 +29,14 @@ public interface XomBuilderFactory {
     NodeFactory getNodeFactory();
 
     @Nonnull
-    DocumentBuilder document();
+    DocumentBuilder createDocument();
 
     @Nonnull
-    DocTypeBuilder doctype(@Nonnull String rootElementName);
+    DocTypeBuilder createDocType(@Nonnull String rootElementName);
 
     @Nonnull
-    ElementBuilder root(@Nonnull String name);
+    ElementBuilder createRoot(@Nonnull String name);
 
     @Nonnull
-    ElementBuilder element(@Nonnull String name);
+    ElementBuilder createElement(@Nonnull String name);
 }

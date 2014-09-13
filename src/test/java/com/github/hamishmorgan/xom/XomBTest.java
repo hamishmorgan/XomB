@@ -35,25 +35,25 @@ public class XomBTest {
 
         final XomB x = new XomB(new NodeFactory());
 
-        Document doc = x.document()
-                .setDocType("html")
-                .setBaseURI(URI.create("http://localhost/"))
-                .setRoot(x.root("html")
+        Document doc = x.createDocument()
+                .withDocType("html")
+                .withBaseURI(URI.create("http://localhost/"))
+                .withRoot(x.createRoot("html")
                         .addComment("Root comment!")
-                        .add(x.element("head")
-                /**/.add(x.element("title")
-                /**/.add("404 Not Found")))
-                        .add(x.element("body")
-		/**/.addComment("Body comment!")
-                /**/.setBaseURI(URI.create("http://example.com/"))
-                /**/.addAttribute("id", "mc body")
-                /**/.add(x.element("h1")
-                /*    */.add("Not Found"))
-                /**/.add(x.element("p")
-                /*    */.add("Abject failure."))
-                /**/.add(x.element("hr"))
-                /**/.add(x.element("address")
-                /*    */.add("Unicorn powered."))))
+                        .add(x.createElement("head")
+                                .add(x.createElement("title")
+                                        .add("404 Not Found")))
+                        .add(x.createElement("body")
+                                .addComment("Body comment!")
+                                .withBaseURI(URI.create("http://example.com/"))
+                                .addAttribute("id", "mc body")
+                                .add(x.createElement("h1")
+                                        .add("Not Found"))
+                                .add(x.createElement("p")
+                                        .add("Abject failure."))
+                                .add(x.createElement("hr"))
+                                .add(x.createElement("address")
+                                        .add("Unicorn powered."))))
                 .addPI("php", "run_finalizer();")
                 .build();
 
@@ -66,17 +66,18 @@ public class XomBTest {
     public void testRepeatedBuild() {
 	
 	XomB x = new XomB();
-	ElementBuilder p = x.element("p");
-	
-	Document doc = x.document().setRoot(
-		    x.element("root")
-			.add(p.add("A"))
-			.add(p.addComment("win"))
-			.add(p.add("B"))
-			.add(p.add("C"))
-			.add(p.add("D"))
-		).build();
-	
+        ElementBuilder p = x.createElement("p");
+
+        Document doc = x.createDocument()
+                .withRoot(
+                        x.createElement("root")
+                                .add(p.add("A"))
+                                .add(p.addComment("win"))
+                                .add(p.add("B"))
+                                .add(p.add("C"))
+                                .add(p.add("D"))
+                ).build();
+
         System.out.println(XomUtil.toString(doc, Charset.forName("ASCII")));
     }
    
@@ -88,35 +89,35 @@ public class XomBTest {
 
         URI h = URI.create("http://www.w3.org/TR/html4/");
         URI f = URI.create("http://www.w3schools.com/furniture");
-        Document doc = x.document().setRoot(
-                x.element("root")
-                    .add(x.element("table")
-                        .setNamespace(h).setPrefix("h")
-                        .add(x.element("tr")
-                            .setNamespace(h).setPrefix("h")
-                            .add(x.element("td")
-                                .setNamespace(h).setPrefix("h")
-                                .add("Apples"))
-                            .add(x.element("td")
-                                .setNamespace(h).setPrefix("h")
-                                .add("Bananas"))))
-                    .add(x.element("table")
-                        .setNamespace(f).setPrefix("f")
-                        .add(x.element("name")
-                            .setNamespace(f).setPrefix("f")
-                            .add("African Coffee Table"))
-                        .add(x.element("width")
-                            .setNamespace(f).setPrefix("f")
-                            .add("80"))
-                        .add(x.element("length")
-                            .setNamespace(f).setPrefix("f")
-                            .add("120")))
-                ).build();
+        Document doc = x.createDocument().withRoot(
+                x.createElement("root")
+                        .add(x.createElement("table")
+                                .withNamespace(h).withPrefix("h")
+                                .add(x.createElement("tr")
+                                        .withNamespace(h).withPrefix("h")
+                                        .add(x.createElement("td")
+                                                .withNamespace(h).withPrefix("h")
+                                                .add("Apples"))
+                                        .add(x.createElement("td")
+                                                .withNamespace(h).withPrefix("h")
+                                                .add("Bananas"))))
+                        .add(x.createElement("table")
+                                .withNamespace(f).withPrefix("f")
+                                .add(x.createElement("name")
+                                        .withNamespace(f).withPrefix("f")
+                                        .add("African Coffee Table"))
+                                .add(x.createElement("width")
+                                        .withNamespace(f).withPrefix("f")
+                                        .add("80"))
+                                .add(x.createElement("length")
+                                        .withNamespace(f).withPrefix("f")
+                                        .add("120")))
+        ).build();
 
-         System.out.println(XomUtil.toString(doc, Charset.forName("ASCII")));
+        System.out.println(XomUtil.toString(doc, Charset.forName("ASCII")));
 
-         
-//        <root>
+
+//        <createRoot>
 //
 //<h:table xmlns:h="http://www.w3.org/TR/html4/">
 //  <h:tr>
@@ -131,7 +132,7 @@ public class XomBTest {
 //  <f:length>120</f:length>
 //</f:table>
 //
-//</root>
+//</createRoot>
 //        
 //        
 
@@ -142,16 +143,16 @@ public class XomBTest {
 //
 //        final XomB x = new XomB(new NodeFactory());
 //
-//        Document doc = x.document()
-//                .setDocType("html")
-//                .setRoot(x.root("html")
+//        Document doc = x.createDocument()
+//                .withDocType("html")
+//                .withRoot(x.createRoot("html")
 //		.addComment("Root  comment!")
-//                .add(x.element("head")
-//                /**/.add(x.element("title")
+//                .add(x.createElement("head")
+//                /**/.add(x.createElement("title")
 //                /**/.add("404 Not Found")))
-//                .add(x.element("body")
+//                .add(x.createElement("body")
 //		/**/.addComment("Body comment!")
-//                /**/.add(x.element("h1")
+//                /**/.add(x.createElement("h1")
 //                /*    */.add("Unicorn powered."))))
 //                .build();
 //
@@ -159,16 +160,16 @@ public class XomBTest {
 //        System.out.println(XomUtil.toString(doc, Charset.forName("ASCII")));
 //
 //    }
-     
-//        XomUtil.DocumentBuilder builder = XomUtil.documentBuilder().setDocType("html");
+
+//        XomUtil.DocumentBuilder builder = XomUtil.documentBuilder().withDocType("html");
 //
-//        ElementBuilder root = builder.createRootElement("html");
+//        ElementBuilder createRoot = builder.createRootElement("html");
 //
-//        root.createChildElement("head")
+//        createRoot.createChildElement("head")
 //                .createChildElement("title").add("404 Not Found");
 //
 //
-//        ElementBuilder body = root.createChildElement("body");
+//        ElementBuilder body = createRoot.createChildElement("body");
 //        body.addAttribute("id", "mc body");
 //        
 //        body.createChildElement("h1").add("Not Found");

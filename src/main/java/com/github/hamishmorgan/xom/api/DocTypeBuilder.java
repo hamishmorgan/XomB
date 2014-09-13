@@ -28,19 +28,19 @@ import java.net.URI;
 public interface DocTypeBuilder extends NodeBuilder<Nodes, DocTypeBuilder> {
 
     @Nonnull
-    DocTypeBuilder setSystemID(URI systemID);
+    DocTypeBuilder withSystemID(URI systemID);
 
     @Nonnull
     DocTypeBuilder clearSystemID();
 
     @Nonnull
-    DocTypeBuilder setPublicID(@Nonnull String publicID);
+    DocTypeBuilder withPublicID(@Nonnull String publicID);
 
     @Nonnull
     DocTypeBuilder clearPublicID();
 
     @Nonnull
-    DocTypeBuilder setInternalDTDSubset(@Nonnull String internalDTDSubset);
+    DocTypeBuilder withInternalDTDSubset(@Nonnull String internalDTDSubset);
 
     @Nonnull
     DocTypeBuilder clearInternalDTDSubset();

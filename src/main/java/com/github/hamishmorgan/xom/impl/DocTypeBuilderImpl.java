@@ -56,7 +56,7 @@ class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
 
     @Override
     @Nonnull
-    public DocTypeBuilder setSystemID(final URI systemID) {
+    public DocTypeBuilder withSystemID(final URI systemID) {
         this.systemID = Optional.of(systemID);
         return this;
     }
@@ -70,7 +70,7 @@ class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
 
     @Override
     @Nonnull
-    public DocTypeBuilder setPublicID(@Nonnull final String publicID) {
+    public DocTypeBuilder withPublicID(@Nonnull final String publicID) {
         checkArgument(!publicID.isEmpty(),
                 "argument publicID is empty");
         this.publicID = Optional.of(publicID);
@@ -86,7 +86,7 @@ class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
 
     @Override
     @Nonnull
-    public DocTypeBuilder setInternalDTDSubset(
+    public DocTypeBuilder withInternalDTDSubset(
             @Nonnull final String internalDTDSubset) {
         checkArgument(!internalDTDSubset.isEmpty(),
                 "argument internalDTDSubset is empty");

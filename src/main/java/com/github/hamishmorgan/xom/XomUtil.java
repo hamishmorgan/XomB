@@ -34,12 +34,12 @@ public class XomUtil {
 
     public static String toString(@Nonnull Element element) {
         detachChildren(element);
-        return toString(new XomB().document().setRoot(element).build());
+        return toString(new XomB().createDocument().withRoot(element).build());
     }
 
     public static String toString(@Nonnull Element element, @Nonnull Charset charset) {
         detachChildren(element);
-        return toString(new XomB().document().setRoot(element).build(), charset);
+        return toString(new XomB().createDocument().withRoot(element).build(), charset);
     }
 
     public static String toString(Document document) {

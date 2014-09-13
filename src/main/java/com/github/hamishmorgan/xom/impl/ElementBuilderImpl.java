@@ -61,15 +61,15 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
 
     /**
      * Constructor should not be called directly. Instead use {@link com.github.hamishmorgan.xom.XomB }
-     * nodeFactory methods: {@link com.github.hamishmorgan.xom.XomB#element(String) }
-     * {@link com.github.hamishmorgan.xom.XomB#element(String)},
-     * {@link com.github.hamishmorgan.xom.XomB#root(String) }, and
+     * nodeFactory methods: {@link com.github.hamishmorgan.xom.XomB#createElement(String) }
+     * {@link com.github.hamishmorgan.xom.XomB#createElement(String)},
+     * {@link com.github.hamishmorgan.xom.XomB#createRoot(String) }, and
      * {@link com.github.hamishmorgan.xom.XomB#root(String, java.net.URI) }.
      *
      * @param nodeFactory use to instantiate xom nodes
      * @param name        the qualified element name
      * @param rootElement whether or not this element is expected to be a
-     *                    root element.
+     *                    createRoot element.
      * @throws NullPointerException     if name is null
      * @throws IllegalArgumentException if name is empty
      */
@@ -80,10 +80,10 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
 
         final int colon = name.indexOf(':');
         if (colon > 0) {
-            setPrefix(name.substring(0, colon));
-            setLocalName(name.substring(colon + 1));
+            withPrefix(name.substring(0, colon));
+            withLocalName(name.substring(colon + 1));
         } else {
-            setLocalName(name);
+            withLocalName(name);
         }
 
         this.isRootElement = rootElement;
@@ -98,7 +98,7 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
 
     @Override
     @Nonnull
-    public ElementBuilder setNamespace(final URI namespace) {
+    public ElementBuilder withNamespace(final URI namespace) {
         this.namespace = Optional.of(namespace);
         return this;
     }
@@ -112,7 +112,7 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
 
     @Override
     @Nonnull
-    public final ElementBuilder setPrefix(@Nonnull String prefix) {
+    public final ElementBuilder withPrefix(@Nonnull String prefix) {
         checkArgument(!prefix.isEmpty(), "prefix is empty");
 
         this.prefix = Optional.of(prefix);
@@ -128,7 +128,7 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
 
     @Override
     @Nonnull
-    public final ElementBuilder setLocalName(@Nonnull String localName) {
+    public final ElementBuilder withLocalName(@Nonnull String localName) {
         checkArgument(!localName.isEmpty(), "argument localName is empty");
 
         this.localName = localName;
