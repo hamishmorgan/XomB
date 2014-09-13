@@ -69,7 +69,8 @@ class DocumentBuilderImpl
     public DocumentBuilder withDocType(@Nonnull final String rootElementName,
                                        @Nonnull final String publicID,
                                        @Nonnull final URI systemID) {
-        return withDocType(new DocTypeBuilderImpl(factory, rootElementName)
+        return withDocType(new DocTypeBuilderImpl(factory)
+                .withRootElementName(rootElementName)
                 .withPublicID(publicID)
                 .withSystemID(systemID));
     }
@@ -77,7 +78,7 @@ class DocumentBuilderImpl
     @Override
     @Nonnull
     public DocumentBuilder withDocType(@Nonnull String rootElementName) {
-        return withDocType(new DocTypeBuilderImpl(factory, rootElementName));
+        return withDocType(new DocTypeBuilderImpl(factory).withRootElementName(rootElementName));
     }
 
     @Override

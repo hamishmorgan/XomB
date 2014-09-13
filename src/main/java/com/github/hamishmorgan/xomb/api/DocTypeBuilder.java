@@ -28,6 +28,9 @@ import java.net.URI;
 public interface DocTypeBuilder extends NodeBuilder<Nodes, DocTypeBuilder> {
 
     @Nonnull
+    DocTypeBuilder withRootElementName(@Nonnull String rootElementName);
+
+    @Nonnull
     DocTypeBuilder withSystemID(@Nonnull URI systemID);
 
     @Nonnull

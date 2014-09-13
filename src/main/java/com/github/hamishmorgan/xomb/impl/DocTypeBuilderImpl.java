@@ -20,6 +20,7 @@ package com.github.hamishmorgan.xomb.impl;
  * #L%
  */
 
+import com.github.hamishmorgan.xomb.api.MissingRequiredPropertyException;
 import com.github.hamishmorgan.xomb.api.DocTypeBuilder;
 import com.google.common.base.Optional;
 import nu.xom.DocType;
@@ -37,7 +38,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
 
     @Nonnull
-    private final String rootElementName;
+    private Optional<String> rootElementName;
 
     @Nonnull
     private Optional<String> publicID;
@@ -48,14 +49,21 @@ class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
     @Nonnull
     private Optional<String> internalDTDSubset;
 
-    DocTypeBuilderImpl(@Nonnull NodeFactory factory, @Nonnull final String rootElementName) {
+    DocTypeBuilderImpl(@Nonnull NodeFactory factory) {
         super(factory);
-        checkArgument(!rootElementName.isEmpty(),
-                "argument rootElementName is empty");
-        this.rootElementName = rootElementName;
+        rootElementName = Optional.absent();
         systemID = Optional.absent();
         publicID = Optional.absent();
         internalDTDSubset = Optional.absent();
+    }
+
+    @Override
+    @Nonnull
+    public DocTypeBuilder withRootElementName(@Nonnull final String rootElementName) {
+        checkArgument(!rootElementName.isEmpty(),
+                "argument rootElementName is empty");
+        this.rootElementName = Optional.of(rootElementName);
+        return this;
     }
 
     @Override
@@ -107,9 +115,14 @@ class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
     @Nonnull
     @CheckReturnValue
     public Nodes build() {
+
+        if(!rootElementName.isPresent()) {
+            throw new MissingRequiredPropertyException("rootElementName");
+        }
+
         final Nodes doctypeNodes = factory.makeDocType(
-                rootElementName,
-                publicID.isPresent() ? publicID.get() : null,
+                rootElementName.get(),
+                publicID.orNull(),
                 systemID.isPresent() ? systemID.get().toString() : null);
 
         if (internalDTDSubset.isPresent()) {

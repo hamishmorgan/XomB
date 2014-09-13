@@ -59,7 +59,7 @@ public class XomBuilderFactoryImpl implements XomBuilderFactory {
     @Nonnull
     @CheckReturnValue
     public DocTypeBuilder createDocType(@Nonnull final String rootElementName) {
-        return new DocTypeBuilderImpl(nodeFactory, rootElementName);
+        return new DocTypeBuilderImpl(nodeFactory).withRootElementName(rootElementName);
     }
 
     @Override

@@ -29,7 +29,7 @@ public interface NodeBuilder<P, B extends NodeBuilder<P, B>> {
      * Construct an XOM node for the current state of the builder.
      *
      * @return newly constructed XOM node
-     * @throws IllegalStateException if the build cannot complete because a
+     * @throws MissingRequiredPropertyException if the build cannot complete because a
      *                               require argument is un/miss-configured
      */
     @CheckReturnValue
