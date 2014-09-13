@@ -11,9 +11,6 @@ import java.net.URI;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-/**
- *
- */
 @ThreadSafe
 public class DocTypeBuilder extends BaseXomBuilder implements NodeBuilder<Nodes, DocTypeBuilder> {
 

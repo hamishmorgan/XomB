@@ -12,8 +12,9 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Abstract super class to the node build classes. </p> Handles a collection
- * of child nodes, but does not implement any public API because the
+ * Abstract super class to the node build classes.
+ *
+ * Handles a collection of child nodes, but does not implement any public API because the
  * constraints for subclasses are quite different.
  *
  * @param <P> product type (the object constructed by this builder)
@@ -62,9 +63,6 @@ abstract class ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
         return (B) this;
     }
 
-    /**
-     * @return
-     */
     @Nonnull
     @SuppressWarnings("unchecked")
     public B clearBaseURI() {
@@ -156,9 +154,6 @@ abstract class ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
         return (B) this;
     }
 
-    /**
-     * @return
-     */
     protected List<Node> _getChildren() {
         return children.build();
     }

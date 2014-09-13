@@ -12,9 +12,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
-/**
- * @author hamish
- */
 @Nonnull
 public class XomUtil {
 

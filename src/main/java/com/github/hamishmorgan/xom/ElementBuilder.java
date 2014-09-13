@@ -16,13 +16,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
 
     /**
-     * Whether or not the element being built is expected to be root
-     * element.
-     * <p/>
-     * Since the XOM NodeFactory provides separate methods for the
-     * construction of normal elements vs. root elements, we need to insure
-     * the correct method is called. Most of the time this will make no
-     * difference, but it still needs to happen.
+     * Whether or not the element being built is expected to be root element.
+     *
+     * Since the XOM NodeFactory provides separate methods for the construction of normal elements vs. root
+     * elements, we need to insure the correct method is called. Most of the time this will make no difference,
+     * but it still needs to happen.
      */
     private final boolean isRootElement;
 
@@ -53,6 +51,7 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
      * {@link com.github.hamishmorgan.xom.XomB#root(String) }, and
      * {@link com.github.hamishmorgan.xom.XomB#root(String, java.net.URI) }.
      *
+     * @param nodeFactory use to instantiate xom nodes
      * @param name        the qualified element name
      * @param rootElement whether or not this element is expected to be a
      *                    root element.
@@ -284,12 +283,12 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
             element.appendChild(node.copy());
         }
 
-    /*
-     * XXX: Not sure if finishMarkingElement is supposed to be called on
-     * root elements or not. It seems reasonable that someone might want
-     * produce extract comments or processing instructions for a root
-     * element, in which case finish' MUST be called.
-     */
+        /*
+         * XXX: Not sure if finishMarkingElement is supposed to be called on
+         * root elements or not. It seems reasonable that someone might want
+         * produce extract comments or processing instructions for a root
+         * element, in which case finish' MUST be called.
+         */
         return factory.finishMakingElement(element);
     }
 }

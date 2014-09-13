@@ -9,28 +9,20 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
-/**
- *
- */
 public class DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder> {
 
     /**
-     * Store whether or not the DocType element has been set.
-     * <p/>
-     * DocType element can only be set once, and cannot be unset.
+     * Store whether or not the DocType element has been set. DocType element can only be set once, and cannot be unset.
      */
     private boolean docTypeSet;
 
     /**
-     * Store whether or not the root element has been set.
-     * <p/>
-     * Root element can only be set once, and cannot be unset.
+     * Store whether or not the root element has been set. Root element can only be set once, and cannot be unset.
      */
     private boolean rootElementSet;
 
     /**
-     * Constructor should not be called directly. Instead use {@link com.github.hamishmorgan.xom.XomB#document()
-     * }
+     * Constructor should not be called directly. Instead use {@link com.github.hamishmorgan.xom.XomB#document()}
      * factory method.
      */
     DocumentBuilder(NodeFactory nodeFactory) {
@@ -67,10 +59,6 @@ public class DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder
         return _addChildren(docTypeBuilder.build());
     }
 
-    /**
-     * @param rootElement
-     * @return
-     */
     @Nonnull
     public DocumentBuilder setRoot(@Nonnull ElementBuilder rootElement) {
         checkNotNull(rootElement, "rootElement");
@@ -112,12 +100,12 @@ public class DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder
             document.setBaseURI(_getBaseURI().get().toString());
         }
 
-    /*
-     * Rather than just appending all the child elements, we need to
-     * explicitly call the setRootElement method on the document exactly
-     * once. Any nodes before or after must be inserted before and after
-     * the root element.
-     */
+        /*
+         * Rather than just appending all the child elements, we need to
+         * explicitly call the setRootElement method on the document exactly
+         * once. Any nodes before or after must be inserted before and after
+         * the root element.
+         */
 
         final List<Node> children = _getChildren();
 
