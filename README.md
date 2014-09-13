@@ -33,27 +33,27 @@ of documents construction using the XOM library. These include:
 
 ```java
 XomB x = new XomB(new NodeFactory());
-Document doc = x.document()
-        .setDocType("html")
-        .setBaseURI(URI.create("http://localhost/"))
-        .setRoot(x.root("html")
-.addComment("Root comment!")
-        .add(x.element("head")
-            .add(x.element("title")
+Document doc = x.createDocument()
+   .withDocType("html")
+   .withBaseURI(URI.create("http://localhost/"))
+   .withRoot(x.createRoot("html")
+      .addComment("Root comment!")
+      .add(x.createElement("head")
+        .add(x.createElement("title")
             .add("404 Not Found")))
-        .add(x.element("body")
-    .addComment("Body comment!")
-            .setBaseURI(URI.create("http://example.com/"))
-            .addAttribute("id", "mc body")
-            .add(x.element("h1")
-                .add("Not Found"))
-            .add(x.element("p")
-                .add("Abject failure."))
-            .add(x.element("hr"))
-            .add(x.element("address")
-                .add("Unicorn powered."))))
-        .addPI("php", "run_finalizer();")
-        .build();
+      .add(x.createElement("body")
+         .addComment("Body comment!")
+         .withBaseURI(URI.create("http://example.com/"))
+         .addAttribute("id", "mc body")
+         .add(x.createElement("h1")
+            .add("Not Found"))
+         .add(x.createElement("p")
+            .add("Abject failure."))
+         .add(x.createElement("hr"))
+         .add(x.createElement("address")
+            .add("Unicorn powered."))))
+      .addPI("php", "run_finalizer();")
+   .build();
 ```
 
 to produce
