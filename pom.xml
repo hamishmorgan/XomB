@@ -8,6 +8,21 @@
     <artifactId>xomb</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>XomB XML Object Model Builder</name>
+    <description>
+        XomB (XML Object Model Builder; pronounced zombie!) is construction
+        tools for nu.xom XML documents and elements.
+    </description>
+    <organization>
+        <name>Hamish Morgan</name>
+        <url>hamishmorgan.github.io</url>
+    </organization>
+    <inceptionYear>2012</inceptionYear>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <license.licenseName>apache_v2</license.licenseName>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -39,4 +54,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+
 </project>
