@@ -27,6 +27,7 @@ import com.github.hamishmorgan.xomb.spi.XomBuilderFactory;
 import com.github.hamishmorgan.xomb.impl.XomBuilderFactoryImpl;
 import nu.xom.NodeFactory;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import java.net.URI;
 
@@ -57,40 +58,48 @@ public class XomB implements XomBuilderFactory {
 
 
     @Nonnull
+    @CheckReturnValue
     public ElementBuilder root(@Nonnull final String name, final URI namespace) {
         return createRoot(name).withNamespace(namespace);
     }
 
     @Nonnull
+    @CheckReturnValue
     public ElementBuilder buildElement(@Nonnull final String name, final URI namespace) {
         return createElement(name).withNamespace(namespace);
     }
 
     @Override
+    @Nonnull
+    @CheckReturnValue
     public NodeFactory getNodeFactory() {
         return xomBuilderFactory.getNodeFactory();
     }
 
     @Override
     @Nonnull
+    @CheckReturnValue
     public DocumentBuilder createDocument() {
         return xomBuilderFactory.createDocument();
     }
 
     @Override
     @Nonnull
+    @CheckReturnValue
     public DocTypeBuilder createDocType(@Nonnull String rootElementName) {
         return xomBuilderFactory.createDocType(rootElementName);
     }
 
     @Override
     @Nonnull
+    @CheckReturnValue
     public ElementBuilder createRoot(@Nonnull String name) {
         return xomBuilderFactory.createRoot(name);
     }
 
     @Override
     @Nonnull
+    @CheckReturnValue
     public ElementBuilder createElement(@Nonnull String name) {
         return xomBuilderFactory.createElement(name);
     }

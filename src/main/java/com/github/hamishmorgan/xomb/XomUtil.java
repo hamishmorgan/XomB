@@ -23,6 +23,7 @@ package com.github.hamishmorgan.xomb;
 import com.google.common.base.Preconditions;
 import nu.xom.*;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,20 +33,28 @@ import java.nio.charset.Charset;
 @Nonnull
 public class XomUtil {
 
+    @Nonnull
+    @CheckReturnValue
     public static String toString(@Nonnull Element element) {
         detachChildren(element);
         return toString(new XomB().createDocument().withRoot(element).build());
     }
 
+    @Nonnull
+    @CheckReturnValue
     public static String toString(@Nonnull Element element, @Nonnull Charset charset) {
         detachChildren(element);
         return toString(new XomB().createDocument().withRoot(element).build(), charset);
     }
 
+    @Nonnull
+    @CheckReturnValue
     public static String toString(@Nonnull Document document) {
         return toString(document, Charset.defaultCharset());
     }
 
+    @Nonnull
+    @CheckReturnValue
     public static String toString(@Nonnull Document document, @Nonnull Charset charset) {
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -76,6 +85,7 @@ public class XomUtil {
         ser.flush();
     }
 
+    @SafeVarargs
     public static void appendChildren(
             @Nonnull final ParentNode parent,
             @Nonnull final Nodes first,
@@ -92,6 +102,7 @@ public class XomUtil {
 
     }
 
+    @SafeVarargs
     public static void appendAttributes(
             @Nonnull final Element parent,
             @Nonnull final Nodes first,
@@ -143,6 +154,7 @@ public class XomUtil {
         }
     }
 
+    @SafeVarargs
     public static void detachChildren(@Nonnull final Nodes first,
                                       @Nonnull final Nodes... remainder) {
         Preconditions.checkNotNull(first, "first");
@@ -160,6 +172,7 @@ public class XomUtil {
         }
     }
 
+    @SafeVarargs
     public static void detachChildren(@Nonnull final Node firstChild,
                                       @Nonnull final Node... remainder) {
         Preconditions.checkNotNull(firstChild, "first");
@@ -176,6 +189,7 @@ public class XomUtil {
     }
 
     @Nonnull
+    @CheckReturnValue
     public static String getPrintableText(@Nonnull Node node) {
         final StringBuilder builder = new StringBuilder();
         getPrintableText(node, builder);

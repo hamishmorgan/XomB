@@ -26,6 +26,7 @@ import nu.xom.Element;
 import nu.xom.Node;
 import nu.xom.Nodes;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import java.net.URI;
 
@@ -38,6 +39,7 @@ public interface ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder>
      * @return
      */
     @Nonnull
+    @CheckReturnValue
     String getLocalName();
 
     /**

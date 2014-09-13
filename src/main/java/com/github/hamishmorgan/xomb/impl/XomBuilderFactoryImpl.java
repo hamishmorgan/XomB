@@ -26,6 +26,7 @@ import com.github.hamishmorgan.xomb.api.ElementBuilder;
 import com.github.hamishmorgan.xomb.spi.XomBuilderFactory;
 import nu.xom.NodeFactory;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -42,30 +43,35 @@ public class XomBuilderFactoryImpl implements XomBuilderFactory {
 
     @Nonnull
     @Override
+    @CheckReturnValue
     public NodeFactory getNodeFactory() {
         return nodeFactory;
     }
 
     @Override
     @Nonnull
+    @CheckReturnValue
     public DocumentBuilder createDocument() {
         return new DocumentBuilderImpl(nodeFactory);
     }
 
     @Override
     @Nonnull
+    @CheckReturnValue
     public DocTypeBuilder createDocType(@Nonnull final String rootElementName) {
         return new DocTypeBuilderImpl(nodeFactory, rootElementName);
     }
 
     @Override
     @Nonnull
+    @CheckReturnValue
     public ElementBuilder createRoot(@Nonnull final String name) {
         return new ElementBuilderImpl(nodeFactory, name, true);
     }
 
     @Override
     @Nonnull
+    @CheckReturnValue
     public ElementBuilder createElement(@Nonnull final String name) {
         return new ElementBuilderImpl(nodeFactory, name, false);
     }

@@ -26,6 +26,7 @@ import nu.xom.DocType;
 import nu.xom.NodeFactory;
 import nu.xom.Nodes;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 import java.net.URI;
@@ -104,6 +105,7 @@ class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
     }
 
     @Nonnull
+    @CheckReturnValue
     public Nodes build() {
         final Nodes doctypeNodes = factory.makeDocType(
                 rootElementName,

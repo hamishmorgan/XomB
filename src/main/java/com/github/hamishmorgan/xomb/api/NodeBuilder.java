@@ -20,6 +20,7 @@ package com.github.hamishmorgan.xomb.api;
  * #L%
  */
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 
 public interface NodeBuilder<P, B extends NodeBuilder<P, B>> {
@@ -31,6 +32,8 @@ public interface NodeBuilder<P, B extends NodeBuilder<P, B>> {
      * @throws IllegalStateException if the build cannot complete because a
      *                               require argument is un/miss-configured
      */
-    @Nonnull P build();
+    @CheckReturnValue
+    @Nonnull
+    P build();
 
 }

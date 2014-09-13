@@ -25,6 +25,7 @@ import com.github.hamishmorgan.xomb.api.DocumentBuilder;
 import com.github.hamishmorgan.xomb.api.ElementBuilder;
 import nu.xom.*;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import java.net.URI;
 import java.util.List;
@@ -126,6 +127,7 @@ class DocumentBuilderImpl
 
     @Override
     @Nonnull
+    @CheckReturnValue
     public Document build() {
         final Document document = factory.startMakingDocument();
 

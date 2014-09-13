@@ -25,21 +25,28 @@ import com.github.hamishmorgan.xomb.api.DocumentBuilder;
 import com.github.hamishmorgan.xomb.api.ElementBuilder;
 import nu.xom.NodeFactory;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 
 public interface XomBuilderFactory {
 
+    @Nonnull
+    @CheckReturnValue
     NodeFactory getNodeFactory();
 
     @Nonnull
+    @CheckReturnValue
     DocumentBuilder createDocument();
 
     @Nonnull
+    @CheckReturnValue
     DocTypeBuilder createDocType(@Nonnull String rootElementName);
 
     @Nonnull
+    @CheckReturnValue
     ElementBuilder createRoot(@Nonnull String name);
 
     @Nonnull
+    @CheckReturnValue
     ElementBuilder createElement(@Nonnull String name);
 }

@@ -25,6 +25,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import nu.xom.*;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import java.net.URI;
 
@@ -226,9 +227,9 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
     }
 
     @Override
-    public
     @Nonnull
-    Nodes build() {
+    @CheckReturnValue
+    public Nodes build() {
 
         final String qualifiedName = prefix.isPresent()
                 ? prefix.get() + ":" + localName.get()

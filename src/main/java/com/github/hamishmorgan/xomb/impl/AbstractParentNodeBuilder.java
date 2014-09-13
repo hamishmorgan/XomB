@@ -25,6 +25,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import nu.xom.*;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import java.net.URI;
 import java.util.List;
@@ -120,6 +121,7 @@ abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
      * @return
      */
     @Nonnull
+    @CheckReturnValue
     Optional<URI> _getBaseURI() {
         return baseURI;
     }
@@ -153,6 +155,7 @@ abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
         return (B) this;
     }
 
+    @CheckReturnValue
     List<Node> _getChildren() {
         return children.build();
     }
