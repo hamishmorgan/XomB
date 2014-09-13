@@ -1,0 +1,151 @@
+package com.github.hamishmorgan.xom;
+
+import nu.xom.*;
+
+import javax.annotation.Nonnull;
+import java.net.URI;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+
+/**
+ *
+ */
+public class DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder> {
+
+    /**
+     * Store whether or not the DocType element has been set.
+     * <p/>
+     * DocType element can only be set once, and cannot be unset.
+     */
+    private boolean docTypeSet;
+
+    /**
+     * Store whether or not the root element has been set.
+     * <p/>
+     * Root element can only be set once, and cannot be unset.
+     */
+    private boolean rootElementSet;
+
+    /**
+     * Constructor should not be called directly. Instead use {@link com.github.hamishmorgan.xom.XomB#document()
+     * }
+     * factory method.
+     */
+    DocumentBuilder(NodeFactory nodeFactory) {
+        super(nodeFactory);
+        docTypeSet = false;
+        rootElementSet = false;
+    }
+
+    @Nonnull
+    public DocumentBuilder setDocType(@Nonnull final String rootElementName,
+                                      @Nonnull final String publicID,
+                                      final URI systemID) {
+        return setDocType(new DocTypeBuilder(factory, rootElementName)
+                .setPublicID(publicID)
+                .setSystemID(systemID));
+    }
+
+    @Nonnull
+    public DocumentBuilder setDocType(@Nonnull String rootElementName) {
+        return setDocType(new DocTypeBuilder(factory, rootElementName));
+    }
+
+    @Nonnull
+    public DocumentBuilder setDocType(@Nonnull DocType docType) {
+        checkState(!docTypeSet, "DocType has already been set.");
+        docTypeSet = true;
+        return _addChild(docType);
+    }
+
+    @Nonnull
+    public DocumentBuilder setDocType(@Nonnull DocTypeBuilder docTypeBuilder) {
+        checkState(!docTypeSet, "DocType has already been set.");
+        docTypeSet = true;
+        return _addChildren(docTypeBuilder.build());
+    }
+
+    /**
+     * @param rootElement
+     * @return
+     */
+    @Nonnull
+    public DocumentBuilder setRoot(@Nonnull ElementBuilder rootElement) {
+        checkNotNull(rootElement, "rootElement");
+
+        //   Can contain any number of PIs and comments, but exactly 1 root node
+        final Nodes nodes = rootElement.build();
+        for (int i = 0; i < nodes.size(); i++) {
+            final Node node = nodes.get(i);
+            if (node instanceof Element) {
+                setRoot((Element) node);
+            } else if (node instanceof ProcessingInstruction
+                    || node instanceof Comment) {
+                _addChild(node);
+            } else {
+                // should only happen if the NodeFactory is behaving badly.
+                throw new AssertionError("Document node can "
+                        + "contain child nodes of type Element, Comment, or"
+                        + " ProcessingInstruction.");
+            }
+
+        }
+        return this;
+    }
+
+    @Nonnull
+    public DocumentBuilder setRoot(@Nonnull Element rootElement) {
+        checkNotNull(rootElement, "rootElement");
+        checkState(!rootElementSet, "Root element has already been set.");
+
+        _addChild(rootElement);
+        rootElementSet = true;
+        return this;
+    }
+
+    public Document build() {
+        final Document document = factory.startMakingDocument();
+
+        if (_getBaseURI().isPresent()) {
+            document.setBaseURI(_getBaseURI().get().toString());
+        }
+
+    /*
+     * Rather than just appending all the child elements, we need to
+     * explicitly call the setRootElement method on the document exactly
+     * once. Any nodes before or after must be inserted before and after
+     * the root element.
+     */
+
+        final List<Node> children = _getChildren();
+
+        int i = 0;
+        while (i < children.size() && !(children.get(i) instanceof Element)) {
+            if (children.get(i) instanceof DocType) {
+                document.setDocType((DocType) children.get(i).copy());
+            } else {
+                document.insertChild(children.get(i).copy(), i);
+            }
+            ++i;
+        }
+
+        if (i < children.size() && (children.get(i) instanceof Element)) {
+            document.setRootElement((Element) children.get(i).copy());
+            ++i;
+        }
+
+        while (i < children.size()) {
+            if (children.get(i) instanceof DocType) {
+                document.setDocType((DocType) children.get(i).copy());
+            } else {
+                document.insertChild(children.get(i).copy(), i);
+            }
+            ++i;
+        }
+
+        factory.finishMakingDocument(document);
+        return document;
+    }
+}

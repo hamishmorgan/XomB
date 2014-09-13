@@ -7,7 +7,6 @@ package com.github.hamishmorgan.xom;
 import nu.xom.Document;
 import nu.xom.NodeFactory;
 import org.junit.Test;
-import com.github.hamishmorgan.xom.XomB.ElementBuilder;
 
 import java.net.URI;
 import java.nio.charset.Charset;
@@ -27,11 +26,11 @@ public class XomBTest {
                 .setDocType("html")
                 .setBaseURI(URI.create("http://localhost/"))
                 .setRoot(x.root("html")
-		.addComment("Root comment!")
-                .add(x.element("head")
+                        .addComment("Root comment!")
+                        .add(x.element("head")
                 /**/.add(x.element("title")
                 /**/.add("404 Not Found")))
-                .add(x.element("body")
+                        .add(x.element("body")
 		/**/.addComment("Body comment!")
                 /**/.setBaseURI(URI.create("http://example.com/"))
                 /**/.addAttribute("id", "mc body")
