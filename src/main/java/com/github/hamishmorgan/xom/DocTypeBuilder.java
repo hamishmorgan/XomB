@@ -95,8 +95,8 @@ public class DocTypeBuilder extends BaseXomBuilder implements NodeBuilder<Nodes,
                     break;
                 }
             }
-            if (!foundDT && LOG.isWarnEnabled()) {
-                LOG.warn("Failed to set internal DT subset property on "
+            if (!foundDT && LOGGER.isWarnEnabled()) {
+                LOGGER.warn("Failed to set internal DT subset property on "
                         + "DocType node because no DocType was produced by "
                         + "the NodeFactory.");
             }

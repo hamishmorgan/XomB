@@ -99,11 +99,11 @@ abstract class ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
     /**
      * @param data
      * @return
-     * @throws NullPointerException          if data is null
+     * @throws NullPointerException                 if data is null
      * @throws nu.xom.IllegalDataException          if data contains a double-hyphen (--) or
-     *                                       a carriage return, or data ends with a hyphen.
+     *                                              a carriage return, or data ends with a hyphen.
      * @throws nu.xom.IllegalCharacterDataException if data contains corrupt or
-     *                                       unsupported characters.
+     *                                              unsupported characters.
      */
     @Nonnull
     public B addComment(final String data) {

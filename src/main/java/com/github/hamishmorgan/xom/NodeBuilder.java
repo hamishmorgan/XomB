@@ -1,8 +1,8 @@
 package com.github.hamishmorgan.xom;
 
 /**
-* Created by hamish on 13/09/14.
-*/
+ * Created by hamish on 13/09/14.
+ */
 interface NodeBuilder<P, B extends NodeBuilder<P, B>> {
 
     /**

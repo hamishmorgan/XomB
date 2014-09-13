@@ -3,9 +3,8 @@ package com.github.hamishmorgan.xom;/*
  * All Rights Reserved.
  */
 
-import nu.xom.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import nu.xom.NodeFactory;
+import nu.xom.Nodes;
 
 import javax.annotation.Nonnull;
 import java.net.URI;
@@ -91,8 +90,6 @@ import java.net.URI;
  */
 @Nonnull
 public class XomB extends BaseXomBuilder {
-
-    private static final Log LOG = LogFactory.getLog(XomB.class);
 
     /**
      * Rather than use null to represent unset URI values, use this special

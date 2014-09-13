@@ -5,8 +5,8 @@ package com.github.hamishmorgan.xom;
  */
 
 import nu.xom.NodeFactory;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 
@@ -15,7 +15,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Nonnull
 class BaseXomBuilder {
 
-    protected final Log LOG = LogFactory.getLog(getClass());
+    protected static final Logger LOGGER = LoggerFactory.getLogger(BaseXomBuilder.class);
 
     final NodeFactory factory;
 
