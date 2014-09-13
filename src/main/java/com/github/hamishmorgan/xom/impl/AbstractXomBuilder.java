@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom;
+package com.github.hamishmorgan.xom.impl;
 
 /*
  * #%L
@@ -29,13 +29,13 @@ import javax.annotation.Nonnull;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @Nonnull
-class BaseXomBuilder {
+class AbstractXomBuilder {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(BaseXomBuilder.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractXomBuilder.class);
 
-    final NodeFactory factory;
+    protected final NodeFactory factory;
 
-    public BaseXomBuilder(final NodeFactory nodeFactory) {
+    AbstractXomBuilder(final NodeFactory nodeFactory) {
         this.factory = checkNotNull(nodeFactory, "nodeFactory");
     }
 

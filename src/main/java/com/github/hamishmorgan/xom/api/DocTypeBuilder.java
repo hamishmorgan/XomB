@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom;
+package com.github.hamishmorgan.xom.api;
 
 /*
  * #%L
@@ -20,14 +20,29 @@ package com.github.hamishmorgan.xom;
  * #L%
  */
 
-interface NodeBuilder<P, B extends NodeBuilder<P, B>> {
+import nu.xom.Nodes;
 
-    /**
-     * Construct an XOM node for the current state of the builder.
-     *
-     * @return newly constructed XOM node
-     * @throws IllegalStateException if the build cannot complete because a
-     *                               require argument is un/miss-configured
-     */
-    public abstract P build();
+import javax.annotation.Nonnull;
+import java.net.URI;
+
+public interface DocTypeBuilder extends NodeBuilder<Nodes, DocTypeBuilder> {
+
+    @Nonnull
+    DocTypeBuilder setSystemID(URI systemID);
+
+    @Nonnull
+    DocTypeBuilder clearSystemID();
+
+    @Nonnull
+    DocTypeBuilder setPublicID(@Nonnull String publicID);
+
+    @Nonnull
+    DocTypeBuilder clearPublicID();
+
+    @Nonnull
+    DocTypeBuilder setInternalDTDSubset(@Nonnull String internalDTDSubset);
+
+    @Nonnull
+    DocTypeBuilder clearInternalDTDSubset();
+
 }

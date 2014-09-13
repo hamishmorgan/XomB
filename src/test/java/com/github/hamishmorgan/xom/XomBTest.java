@@ -20,6 +20,7 @@ package com.github.hamishmorgan.xom;
  * #L%
  */
 
+import com.github.hamishmorgan.xom.api.ElementBuilder;
 import nu.xom.Document;
 import nu.xom.NodeFactory;
 import org.junit.Test;
@@ -27,10 +28,6 @@ import org.junit.Test;
 import java.net.URI;
 import java.nio.charset.Charset;
 
-/**
- *
- * @author hamish
- */
 public class XomBTest {
 
     @Test

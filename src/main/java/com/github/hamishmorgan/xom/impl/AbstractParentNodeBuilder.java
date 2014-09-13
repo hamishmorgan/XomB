@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom;
+package com.github.hamishmorgan.xom.impl;
 
 /*
  * #%L
@@ -20,6 +20,7 @@ package com.github.hamishmorgan.xom;
  * #L%
  */
 
+import com.github.hamishmorgan.xom.api.ParentNodeBuilder;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import nu.xom.*;
@@ -33,17 +34,21 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Abstract super class to the node build classes.
- *
+ * <p/>
  * Handles a collection of child nodes, but does not implement any public API because the
  * constraints for subclasses are quite different.
  *
  * @param <P> product type (the object constructed by this builder)
  * @param <B> builder type (the subclass type of this builder)
  */
-abstract class ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
-        extends BaseXomBuilder
-        implements NodeBuilder<P, B> {
+abstract class AbstractParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
+        extends AbstractXomBuilder
+        implements ParentNodeBuilder<P, B> {
 
+    /**
+     * Build an immutable list of childrenOf.
+     */
+    private final ImmutableList.Builder<Node> children;
     /**
      * Defines a names-space from which all URIs inside are considered to be
      * relative to.
@@ -58,24 +63,15 @@ abstract class ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
     private Optional<URI> baseURI;
 
     /**
-     * Build an immutable list of childrenOf.
-     */
-    private final ImmutableList.Builder<Node> children;
-
-    /**
      * Constructor
      */
-    ParentNodeBuilder(NodeFactory nodeFactory) {
+    AbstractParentNodeBuilder(NodeFactory nodeFactory) {
         super(nodeFactory);
         baseURI = Optional.absent();
         children = ImmutableList.builder();
     }
 
-    /**
-     * @param baseURI
-     * @return
-     * @throws NullPointerException if baseURI is null
-     */
+    @Override
     @Nonnull
     @SuppressWarnings("unchecked")
     public B setBaseURI(final URI baseURI) {
@@ -83,6 +79,7 @@ abstract class ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
         return (B) this;
     }
 
+    @Override
     @Nonnull
     @SuppressWarnings("unchecked")
     public B clearBaseURI() {
@@ -90,12 +87,7 @@ abstract class ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
         return (B) this;
     }
 
-    /**
-     * @param target
-     * @param data
-     * @return
-     * @throws NullPointerException if target or data is null
-     */
+    @Override
     @Nonnull
     public B addPI(@Nonnull final String target, final String data) {
         checkArgument(!target.isEmpty(), "argument target is empty");
@@ -104,35 +96,19 @@ abstract class ParentNodeBuilder<P, B extends ParentNodeBuilder<P, B>>
                 checkNotNull(data, "data")));
     }
 
-    /**
-     * @param pi
-     * @return
-     * @throws NullPointerException if pi is null
-     */
+    @Override
     @Nonnull
     public B addPI(@Nonnull final ProcessingInstruction pi) {
         return _addChild(pi);
     }
 
-    /**
-     * @param data
-     * @return
-     * @throws NullPointerException                 if data is null
-     * @throws nu.xom.IllegalDataException          if data contains a double-hyphen (--) or
-     *                                              a carriage return, or data ends with a hyphen.
-     * @throws nu.xom.IllegalCharacterDataException if data contains corrupt or
-     *                                              unsupported characters.
-     */
+    @Override
     @Nonnull
     public B addComment(final String data) {
         return _addChildren(factory.makeComment(checkNotNull(data, "data")));
     }
 
-    /**
-     * @param comment
-     * @return
-     * @throws NullPointerException if data is null
-     */
+    @Override
     @Nonnull
     public B addComment(@Nonnull final Comment comment) {
         return _addChild(comment);

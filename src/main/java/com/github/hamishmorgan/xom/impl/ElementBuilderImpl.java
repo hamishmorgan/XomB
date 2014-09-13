@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom;
+package com.github.hamishmorgan.xom.impl;
 
 /*
  * #%L
@@ -20,6 +20,8 @@ package com.github.hamishmorgan.xom;
  * #L%
  */
 
+import com.github.hamishmorgan.xom.XomB;
+import com.github.hamishmorgan.xom.api.ElementBuilder;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import nu.xom.*;
@@ -30,10 +32,7 @@ import java.net.URI;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- *
- */
-public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
+class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder> implements ElementBuilder {
 
     /**
      * Whether or not the element being built is expected to be root element.
@@ -43,30 +42,26 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
      * but it still needs to happen.
      */
     private final boolean isRootElement;
-
+    /**
+     * Construct a list of the attributes of this element.
+     */
+    private final ImmutableList.Builder<Attribute> attributes;
     /**
      * The elements unqualified name.
      */
     private String localName;
-
     /**
      * The namespace prefix for the given name.
      */
     private Optional<String> prefix = Optional.absent();
-
     /**
      * The elements name-space.
      */
     private Optional<URI> namespace;
 
     /**
-     * Construct a list of the attributes of this element.
-     */
-    private final ImmutableList.Builder<Attribute> attributes;
-
-    /**
      * Constructor should not be called directly. Instead use {@link com.github.hamishmorgan.xom.XomB }
-     * factory methods: {@link com.github.hamishmorgan.xom.XomB#element(String) }
+     * nodeFactory methods: {@link com.github.hamishmorgan.xom.XomB#element(String) }
      * {@link com.github.hamishmorgan.xom.XomB#element(String)},
      * {@link com.github.hamishmorgan.xom.XomB#root(String) }, and
      * {@link com.github.hamishmorgan.xom.XomB#root(String, java.net.URI) }.
@@ -78,7 +73,7 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
      * @throws NullPointerException     if name is null
      * @throws IllegalArgumentException if name is empty
      */
-    ElementBuilder(NodeFactory nodeFactory, @Nonnull final String name, final boolean rootElement) {
+    ElementBuilderImpl(NodeFactory nodeFactory, @Nonnull final String name, final boolean rootElement) {
         super(nodeFactory);
         checkNotNull(name, "name");
         checkArgument(!name.isEmpty(), "argument name is empty");
@@ -96,43 +91,26 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
         this.namespace = Optional.absent();
     }
 
-    /**
-     * I didn't want to make this (or indeed any accessors) public, but
-     * certain problems require knowing the name of the parent element from
-     * that parents builder.
-     *
-     * @return
-     */
+    @Override
     public String getLocalName() {
         return localName;
     }
 
-    /**
-     * @param namespace
-     * @return ElementBuilder instance of method chaining
-     * @throws NullPointerException if namespace is null
-     */
+    @Override
     @Nonnull
     public ElementBuilder setNamespace(final URI namespace) {
         this.namespace = Optional.of(namespace);
         return this;
     }
 
-    /**
-     * @return ElementBuilder instance of method chaining
-     */
+    @Override
     @Nonnull
     public ElementBuilder clearNamespace() {
         this.namespace = Optional.absent();
         return this;
     }
 
-    /**
-     * @param prefix
-     * @return ElementBuilder instance of method chaining
-     * @throws NullPointerException     if prefix is null
-     * @throws IllegalArgumentException if prefix is empty
-     */
+    @Override
     @Nonnull
     public final ElementBuilder setPrefix(@Nonnull String prefix) {
         checkArgument(!prefix.isEmpty(), "prefix is empty");
@@ -141,18 +119,14 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
         return this;
     }
 
+    @Override
     @Nonnull
     public final ElementBuilder clearPrefix() {
         this.prefix = Optional.absent();
         return this;
     }
 
-    /**
-     * @param localName
-     * @return ElementBuilder instance of method chaining
-     * @throws NullPointerException     if localName is null
-     * @throws IllegalArgumentException if localName is empty
-     */
+    @Override
     @Nonnull
     public final ElementBuilder setLocalName(@Nonnull String localName) {
         checkArgument(!localName.isEmpty(), "argument localName is empty");
@@ -161,10 +135,7 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
         return this;
     }
 
-    /**
-     * @param data
-     * @return ElementBuilder instance of method chaining
-     */
+    @Override
     @Nonnull
     public ElementBuilder add(final String data) {
         checkNotNull(data, "data");
@@ -174,10 +145,7 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
         return this;
     }
 
-    /**
-     * @param elBuilder
-     * @return ElementBuilder instance of method chaining
-     */
+    @Override
     @Nonnull
     public ElementBuilder add(@Nonnull final ElementBuilder elBuilder) {
         checkNotNull(elBuilder, "elBuilder");
@@ -186,10 +154,7 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
         return this;
     }
 
-    /**
-     * @param element
-     * @return ElementBuilder instance of method chaining
-     */
+    @Override
     @Nonnull
     public ElementBuilder add(@Nonnull final Element element) {
         checkNotNull(element, "element");
@@ -198,10 +163,7 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
         return this;
     }
 
-    /**
-     * @param attribute
-     * @return ElementBuilder instance of method chaining
-     */
+    @Override
     @Nonnull
     public ElementBuilder addAttribute(@Nonnull Attribute attribute) {
         checkNotNull(attribute, "attribute");
@@ -212,24 +174,14 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
         return this;
     }
 
-    /**
-     * @param name
-     * @param value
-     * @return ElementBuilder instance of method chaining
-     */
+    @Override
     @Nonnull
     public ElementBuilder addAttribute(@Nonnull final String name,
                                        final String value) {
         return addAttribute(name, XomB.NULL_URI, value, Attribute.Type.CDATA);
     }
 
-    /**
-     * @param name
-     * @param namespace
-     * @param value
-     * @param type
-     * @return ElementBuilder instance of method chaining
-     */
+    @Override
     @Nonnull
     public ElementBuilder addAttribute(
             @Nonnull final String name, @Nonnull final URI namespace,
@@ -248,13 +200,7 @@ public class ElementBuilder extends ParentNodeBuilder<Nodes, ElementBuilder> {
         return this;
     }
 
-    /**
-     * @param node
-     * @return ElementBuilder instance of method chaining
-     * @throws NullPointerException     if node is null
-     * @throws IllegalArgumentException if node is a Namespace, DocType or
-     *                                  Document, or node already has a parent.
-     */
+    @Override
     @Nonnull
     public ElementBuilder add(final Node node) {
         checkNotNull(node, "node");

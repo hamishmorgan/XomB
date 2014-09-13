@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom;
+package com.github.hamishmorgan.xom.impl;
 
 /*
  * #%L
@@ -20,6 +20,7 @@ package com.github.hamishmorgan.xom;
  * #L%
  */
 
+import com.github.hamishmorgan.xom.api.DocTypeBuilder;
 import com.google.common.base.Optional;
 import nu.xom.DocType;
 import nu.xom.NodeFactory;
@@ -32,7 +33,7 @@ import java.net.URI;
 import static com.google.common.base.Preconditions.checkArgument;
 
 @ThreadSafe
-public class DocTypeBuilder extends BaseXomBuilder implements NodeBuilder<Nodes, DocTypeBuilder> {
+class DocTypeBuilderImpl extends AbstractXomBuilder implements DocTypeBuilder {
 
     @Nonnull
     private final String rootElementName;
@@ -43,7 +44,7 @@ public class DocTypeBuilder extends BaseXomBuilder implements NodeBuilder<Nodes,
 
     private Optional<String> internalDTDSubset;
 
-    DocTypeBuilder(NodeFactory factory, @Nonnull final String rootElementName) {
+    DocTypeBuilderImpl(NodeFactory factory, @Nonnull final String rootElementName) {
         super(factory);
         checkArgument(!rootElementName.isEmpty(),
                 "argument rootElementName is empty");
@@ -53,18 +54,21 @@ public class DocTypeBuilder extends BaseXomBuilder implements NodeBuilder<Nodes,
         internalDTDSubset = Optional.absent();
     }
 
+    @Override
     @Nonnull
     public DocTypeBuilder setSystemID(final URI systemID) {
         this.systemID = Optional.of(systemID);
         return this;
     }
 
+    @Override
     @Nonnull
     public DocTypeBuilder clearSystemID() {
         this.systemID = Optional.absent();
         return this;
     }
 
+    @Override
     @Nonnull
     public DocTypeBuilder setPublicID(@Nonnull final String publicID) {
         checkArgument(!publicID.isEmpty(),
@@ -73,12 +77,14 @@ public class DocTypeBuilder extends BaseXomBuilder implements NodeBuilder<Nodes,
         return this;
     }
 
+    @Override
     @Nonnull
     public DocTypeBuilder clearPublicID() {
         this.publicID = Optional.absent();
         return this;
     }
 
+    @Override
     @Nonnull
     public DocTypeBuilder setInternalDTDSubset(
             @Nonnull final String internalDTDSubset) {
@@ -88,6 +94,7 @@ public class DocTypeBuilder extends BaseXomBuilder implements NodeBuilder<Nodes,
         return this;
     }
 
+    @Override
     @Nonnull
     public DocTypeBuilder clearInternalDTDSubset() {
         this.internalDTDSubset = Optional.absent();

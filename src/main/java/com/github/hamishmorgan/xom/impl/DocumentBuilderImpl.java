@@ -1,4 +1,4 @@
-package com.github.hamishmorgan.xom;
+package com.github.hamishmorgan.xom.impl;
 
 /*
  * #%L
@@ -20,6 +20,9 @@ package com.github.hamishmorgan.xom;
  * #L%
  */
 
+import com.github.hamishmorgan.xom.api.DocTypeBuilder;
+import com.github.hamishmorgan.xom.api.DocumentBuilder;
+import com.github.hamishmorgan.xom.api.ElementBuilder;
 import nu.xom.*;
 
 import javax.annotation.Nonnull;
@@ -29,7 +32,9 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
-public class DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder> {
+class DocumentBuilderImpl
+        extends AbstractParentNodeBuilder<Document, DocumentBuilder>
+        implements DocumentBuilder {
 
     /**
      * Store whether or not the DocType element has been set. DocType element can only be set once, and cannot be unset.
@@ -43,28 +48,31 @@ public class DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder
 
     /**
      * Constructor should not be called directly. Instead use {@link com.github.hamishmorgan.xom.XomB#document()}
-     * factory method.
+     * nodeFactory method.
      */
-    DocumentBuilder(NodeFactory nodeFactory) {
+    DocumentBuilderImpl(NodeFactory nodeFactory) {
         super(nodeFactory);
         docTypeSet = false;
         rootElementSet = false;
     }
 
+    @Override
     @Nonnull
     public DocumentBuilder setDocType(@Nonnull final String rootElementName,
                                       @Nonnull final String publicID,
                                       final URI systemID) {
-        return setDocType(new DocTypeBuilder(factory, rootElementName)
+        return setDocType(new DocTypeBuilderImpl(factory, rootElementName)
                 .setPublicID(publicID)
                 .setSystemID(systemID));
     }
 
+    @Override
     @Nonnull
     public DocumentBuilder setDocType(@Nonnull String rootElementName) {
-        return setDocType(new DocTypeBuilder(factory, rootElementName));
+        return setDocType(new DocTypeBuilderImpl(factory, rootElementName));
     }
 
+    @Override
     @Nonnull
     public DocumentBuilder setDocType(@Nonnull DocType docType) {
         checkState(!docTypeSet, "DocType has already been set.");
@@ -72,6 +80,7 @@ public class DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder
         return _addChild(docType);
     }
 
+    @Override
     @Nonnull
     public DocumentBuilder setDocType(@Nonnull DocTypeBuilder docTypeBuilder) {
         checkState(!docTypeSet, "DocType has already been set.");
@@ -79,8 +88,9 @@ public class DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder
         return _addChildren(docTypeBuilder.build());
     }
 
+    @Override
     @Nonnull
-    public DocumentBuilder setRoot(@Nonnull ElementBuilder rootElement) {
+    public DocumentBuilderImpl setRoot(@Nonnull ElementBuilder rootElement) {
         checkNotNull(rootElement, "rootElement");
 
         //   Can contain any number of PIs and comments, but exactly 1 root node
@@ -103,6 +113,7 @@ public class DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder
         return this;
     }
 
+    @Override
     @Nonnull
     public DocumentBuilder setRoot(@Nonnull Element rootElement) {
         checkNotNull(rootElement, "rootElement");
@@ -113,6 +124,7 @@ public class DocumentBuilder extends ParentNodeBuilder<Document, DocumentBuilder
         return this;
     }
 
+    @Override
     public Document build() {
         final Document document = factory.startMakingDocument();
 

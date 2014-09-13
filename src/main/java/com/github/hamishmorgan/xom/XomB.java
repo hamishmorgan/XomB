@@ -20,14 +20,18 @@ package com.github.hamishmorgan.xom;
  * #L%
  */
 
+import com.github.hamishmorgan.xom.api.DocTypeBuilder;
+import com.github.hamishmorgan.xom.api.DocumentBuilder;
+import com.github.hamishmorgan.xom.api.ElementBuilder;
+import com.github.hamishmorgan.xom.api.XomBuilderFactory;
+import com.github.hamishmorgan.xom.impl.XomBuilderFactoryImpl;
 import nu.xom.NodeFactory;
-import nu.xom.Nodes;
 
 import javax.annotation.Nonnull;
 import java.net.URI;
 
 @Nonnull
-public class XomB extends BaseXomBuilder {
+public class XomB implements XomBuilderFactory {
 
     /**
      * Rather than use null to represent unset URI values, use this special
@@ -35,16 +39,18 @@ public class XomB extends BaseXomBuilder {
      */
     public static final URI NULL_URI = URI.create("");
 
+    private final XomBuilderFactory xomBuilderFactory;
+
     /**
      * Construct a new com.github.hamishmorgan.xom.XomB instance that will use the given NodeFactory
      * instance to create all XOM nodes.
      * <p/>
      *
      * @param factory used to create nodes
-     * @throws NullPointerException if factory is null
+     * @throws NullPointerException if nodeFactory is null
      */
     public XomB(final NodeFactory factory) {
-        super(factory);
+        xomBuilderFactory = new XomBuilderFactoryImpl(factory);
     }
 
     /**
@@ -54,15 +60,6 @@ public class XomB extends BaseXomBuilder {
         this(new NodeFactory());
     }
 
-    @Nonnull
-    public DocumentBuilder document() {
-        return new DocumentBuilder(factory);
-    }
-
-    @Nonnull
-    public DocTypeBuilder doctype(@Nonnull final String rootElementName) {
-        return new DocTypeBuilder(factory, rootElementName);
-    }
 
     @Nonnull
     public ElementBuilder root(@Nonnull final String name, final URI namespace) {
@@ -70,18 +67,36 @@ public class XomB extends BaseXomBuilder {
     }
 
     @Nonnull
-    public ElementBuilder root(@Nonnull final String name) {
-        return new ElementBuilder(factory, name, true);
-    }
-
-    @Nonnull
     public ElementBuilder buildElement(@Nonnull final String name, final URI namespace) {
         return element(name).setNamespace(namespace);
     }
 
-    @Nonnull
-    public ElementBuilder element(@Nonnull final String name) {
-        return new ElementBuilder(factory, name, false);
+    @Override
+    public NodeFactory getNodeFactory() {
+        return xomBuilderFactory.getNodeFactory();
     }
 
+    @Override
+    @Nonnull
+    public DocumentBuilder document() {
+        return xomBuilderFactory.document();
+    }
+
+    @Override
+    @Nonnull
+    public DocTypeBuilder doctype(@Nonnull String rootElementName) {
+        return xomBuilderFactory.doctype(rootElementName);
+    }
+
+    @Override
+    @Nonnull
+    public ElementBuilder root(@Nonnull String name) {
+        return xomBuilderFactory.root(name);
+    }
+
+    @Override
+    @Nonnull
+    public ElementBuilder element(@Nonnull String name) {
+        return xomBuilderFactory.element(name);
+    }
 }
