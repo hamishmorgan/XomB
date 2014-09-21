@@ -238,9 +238,20 @@ class ElementBuilderImpl extends AbstractParentNodeBuilder<Nodes, ElementBuilder
     @CheckReturnValue
     public Nodes build() {
 
-        final String qualifiedName = prefix.isPresent()
-                ? prefix.get() + ":" + localName.get()
-                : localName.get();
+        final String qualifiedName;
+        if(prefix.isPresent()) {
+            if(localName.isPresent()) {
+                qualifiedName = prefix.get() + ":" + localName.get();
+            } else {
+                qualifiedName = prefix.get() + ":";
+            }
+        } else {
+            if(localName.isPresent()) {
+                qualifiedName = localName.get();
+            } else {
+                qualifiedName = "";
+            }
+        }
 
         final String namespaceStr = namespace.isPresent()
                 ? namespace.get().toString()
